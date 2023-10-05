@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>24979268019-t9krro008ent2r99vnv8e0rvm6o42vr1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.24979268019-t9krro008ent2r99vnv8e0rvm6o42vr1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC-mwWVmMkxm3ABdrExyI1JeChZ3N_NsmI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>24979268019</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.rideGlide</string>
+	<key>PROJECT_ID</key>
+	<string>rideglidefire</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rideglidefire.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:24979268019:ios:6a37bd36d7cb49e8f86bc6</string>
+</dict>
+</plist>

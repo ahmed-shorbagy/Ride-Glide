@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1008534140272903</string>
+    <string name="facebook_client_token">484ecd40c95b65b1ad3d17d3bdcf62ab</string>
+    <string name="fb_login_protocol_scheme">fb924e4531861ed688f07aab7045c7201f</string>
+    <string name="app_name">RideGlide</string>
+</resources>
+

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "24979268019",
+    "project_id": "rideglidefire",
+    "storage_bucket": "rideglidefire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24979268019:android:89b0dc634565affdf86bc6",
+        "android_client_info": {
+          "package_name": "com.example.ride_glide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24979268019-ajbmantef6043paq9oadm0u65ds3n9d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCotsBAnkGyoaqppB2t2deVhPmTFsFy28E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24979268019-ajbmantef6043paq9oadm0u65ds3n9d6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
