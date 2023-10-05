@@ -27,4 +27,6 @@ class Assets {
   static const String BikeIcon = "assets/Bike.png";
   static const String StyleCarIcon = "assets/Property 1=Car 4.png";
   static const String StarIcon = "assets/Vector.png";
+  static const String CashIcon = "assets/Property 1=Cash on pay.png";
+  static const String VisaIcon = "assets/Property 1=Visa.png";
 }

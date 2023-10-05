@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
+import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/Pick_destination_cubit/pick_destination_cubit.dart';
@@ -65,8 +67,7 @@ class _ChooseLocationOnMapViewBodyState
         BlocListener<PickDestinationCubit, PickDestinationState>(
           listener: (context, state) {
             if (state is PickDestinationSuccess) {
-              PickDestinationCubit.destinationAddress =
-                  state.placeDetails.result?.formattedAddress ?? '';
+              PickDestinationCubit.destination = state.placeDetails;
               PickDestinationCubit.destinationPlacecontroller.text =
                   state.placeDetails.result?.name ?? '';
             }
@@ -169,9 +170,12 @@ class _ChooseLocationOnMapViewBodyState
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: CustomButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context)
+                            .push(AppRouter.kSelectTransportView);
+                      },
                       title: Text(
-                        '            Confirm Locations            ',
+                        '            Order Now           ',
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!

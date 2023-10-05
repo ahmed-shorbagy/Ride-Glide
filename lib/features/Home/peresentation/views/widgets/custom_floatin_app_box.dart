@@ -36,8 +36,7 @@ class CustomFloatingAppBox extends StatelessWidget {
               child: BlocListener<PickLocationCubit, PickLocationState>(
                 listener: (context, state) {
                   if (state is PickLocationSucceess) {
-                    PickLocationCubit.locationAddress =
-                        state.placeDetails.result?.formattedAddress ?? '';
+                    PickLocationCubit.location = state.placeDetails;
                   }
                 },
                 child: CustomMapTextField(

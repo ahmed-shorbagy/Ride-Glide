@@ -24,8 +24,8 @@ class PlaceDetailsCubit extends Cubit<PlaceDetailsState> {
     Future.delayed(
       const Duration(seconds: 1),
       () {
-        if (PickDestinationCubit.destinationAddress != null &&
-            PickLocationCubit.locationAddress != null) {
+        if (PickDestinationCubit.destination != null &&
+            PickLocationCubit.location != null) {
           emit(PlaceDetailsCubitLocationDestnationSelected());
         }
       },

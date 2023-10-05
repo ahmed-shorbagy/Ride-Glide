@@ -1,9 +1,11 @@
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void snackBar(BuildContext context, String massage) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -51,4 +53,26 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
   return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
       .buffer
       .asUint8List();
+}
+
+double calculateDistance(LatLng start, LatLng end) {
+  const double radiusOfEarth = 6371.0; // Earth's radius in kilometers
+
+  // Convert degrees to radians
+  double lat1 = start.latitude * (pi / 180);
+  double lon1 = start.longitude * (pi / 180);
+  double lat2 = end.latitude * (pi / 180);
+  double lon2 = end.longitude * (pi / 180);
+
+  // Haversine formula
+  double dLat = lat2 - lat1;
+  double dLon = lon2 - lon1;
+
+  double a = sin(dLat / 2) * sin(dLat / 2) +
+      cos(lat1) * cos(lat2) * sin(dLon / 2) * sin(dLon / 2);
+  double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+  // Calculate distance
+  double distance = radiusOfEarth * c;
+  return distance;
 }

@@ -28,10 +28,7 @@ class CustomListViewAutoCompleteDestination extends StatelessWidget {
                       BlocListener<PickDestinationCubit, PickDestinationState>(
                     listener: (context, state) {
                       if (state is PickDestinationSuccess) {
-                        PickDestinationCubit.destinationAddress =
-                            state.placeDetails.result?.formattedAddress ?? '';
-                        debugPrint(
-                            'THIS IS THE dESTINATION ()()()()()(===== ${PickDestinationCubit.destinationAddress})');
+                        PickDestinationCubit.destination = state.placeDetails;
                       }
                     },
                     child: PlacesCustomListItem(

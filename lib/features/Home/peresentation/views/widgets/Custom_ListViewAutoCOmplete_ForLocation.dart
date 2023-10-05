@@ -27,10 +27,7 @@ class CustomListViewAutoCOmpleteForLocation extends StatelessWidget {
                   child: BlocListener<PickLocationCubit, PickLocationState>(
                     listener: (context, state) {
                       if (state is PickLocationSucceess) {
-                        PickLocationCubit.locationAddress =
-                            state.placeDetails.result?.formattedAddress ?? '';
-                        debugPrint(
-                            'THIS IS THE LOCATION ()()()()()(===== ${PickLocationCubit.locationAddress})');
+                        PickLocationCubit.location = state.placeDetails;
                       }
                     },
                     child: PlacesCustomListItem(

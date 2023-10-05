@@ -12,7 +12,7 @@ class PickLocationCubit extends Cubit<PickLocationState> {
   static TextEditingController locationPlaceController =
       TextEditingController();
 
-  static String? locationAddress;
+  static PlaceDetailsModel? location;
 
   Future<void> getPlaceDetailsFromLocation(
       {required double latitude, required double longitude}) async {
