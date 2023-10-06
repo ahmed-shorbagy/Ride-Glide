@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
+import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
 
 import 'package:ride_glide/core/utils/size_config.dart';
@@ -113,7 +115,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: CustomButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context)
+                            .push(AppRouter.kSelectTransportView);
+                      },
                       title: Text(
                         '            Confirm Locations            ',
                         style: Theme.of(context)

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ride_glide/core/errors/Faluire_model.dart';
 import 'package:ride_glide/core/utils/api_service.dart';
 import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
@@ -12,6 +13,10 @@ import 'package:ride_glide/features/Home/data/repos/Home_repo.dart';
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
   final String key = 'AIzaSyCwAe3qJC0pDaLbovyNykTSLRaY5r7N--g';
+  static const String stripePublishablekey =
+      'pk_test_51NyEvAEAdvIVZRwI3TmwwS8BxtSlr5g7XFW6JqS1gtXfb9rBSA3K7BYR1ofoDNTyURg0yZgQAC7pynV269gkMWlj00bKgQFimg';
+  final String stripeSecretkey =
+      'sk_test_51NyEvAEAdvIVZRwIxFgdtKshjB7IevsCAzDQpBfLQNdd1WPUcNwe0JOLZJBTwu6rd2wfKUbVxpPh5RI2Oe3FGpSK004tCJI1XV';
   final String types = 'geocode';
   final firestore = FirebaseFirestore.instance;
 
@@ -126,8 +131,7 @@ class HomeRepoImpl implements HomeRepo {
             },
             (placeDetails) {
               // Return the successful result from getPlaceDetails
-              debugPrint(
-                  'THIS IS THE NEW METHOD HEHEHE BOY  ===---0099====== $placeDetails');
+
               return right(placeDetails);
             },
           );
@@ -165,5 +169,55 @@ class HomeRepoImpl implements HomeRepo {
     // Take only the first wordLimit words and join them back together with spaces
     List<String> truncatedWords = words.take(wordLimit).toList();
     return truncatedWords.join(' ');
+  }
+
+  @override
+  Future<Either<Faluire, String?>> getClientSecret(
+      {required int amount, required String currency}) async {
+    try {
+      var responce = await Dio().post(
+        'https://api.stripe.com/v1/payment_intents',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $stripeSecretkey',
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        ),
+        data: {
+          'amount': amount, // Replace with the desired amount in cents
+          'currency': currency, // Replace with the desired currency
+        },
+      );
+      debugPrint(
+          'THIS IS THE SECREETTTT=====()(==   ${responce.data["client_secret"]})');
+      return right(responce.data["client_secret"]);
+    } catch (e) {
+      debugPrint('THIS IS THE SECREETTTT=====()(======  ${e.toString()}  ');
+      return left(ServerFaliure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Faluire, void>> makePayment(
+      {required int amount, required String currency}) async {
+    try {
+      var clientSecret =
+          await getClientSecret(amount: (amount * 100), currency: currency);
+      clientSecret.fold((faluire) {
+        return left(ServerFaliure(errMessage: faluire.toString()));
+      }, (clientSecret) async {
+        await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+              customFlow: true,
+              paymentIntentClientSecret: clientSecret,
+              merchantDisplayName: 'Ahmed'),
+        );
+        await Stripe.instance.presentPaymentSheet();
+        await Stripe.instance.confirmPaymentSheetPayment();
+      });
+      return right(amount);
+    } catch (e) {
+      return left(ServerFaliure(errMessage: e.toString()));
+    }
   }
 }

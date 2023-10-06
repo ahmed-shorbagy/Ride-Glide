@@ -16,4 +16,8 @@ abstract class HomeRepo {
   Future<Either<Faluire, List<DriverModel>>> checkForNearbyOnlineDrivers();
   Future<Either<Faluire, PlaceDetailsModel>> getPlaceDetailsfromLocation(
       {required double latitude, required double longitude});
+  Future<Either<Faluire, String?>> getClientSecret(
+      {required int amount, required String currency});
+  Future<Either<Faluire, void>> makePayment(
+      {required int amount, required String currency});
 }

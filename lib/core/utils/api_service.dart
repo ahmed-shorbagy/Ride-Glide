@@ -9,4 +9,11 @@ class ApiService {
     var responce = await _dio.get(url);
     return responce.data;
   }
+
+  Future<Map<String, dynamic>> post({
+    required String url,
+  }) async {
+    var responce = await _dio.post(url);
+    return responce.data;
+  }
 }

@@ -1,6 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
+import 'package:ride_glide/core/utils/api_service.dart';
 import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
+import 'package:ride_glide/features/Home/data/repos/Home_repo_implementation.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_LocationDestinationColumn.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/confirm_booking_custom_card.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_payment_Method_card.dart';
@@ -63,15 +69,25 @@ class ConfirmBookingViewBody extends StatelessWidget {
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   fontWeight: FontWeight.w500, color: const Color(0xff5A5A5A)),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CustomPaymentMethodCard(
-                  icon: Assets.VisaIcon, text: 'Pay with your visa card'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BlocListener<PaymentCubit, PaymentState>(
+                listener: (context, state) async {
+                  if (state is PaymentSuccess) {}
+                },
+                child: CustomPaymentMethodCard(
+                    onTap: () async {
+                      await BlocProvider.of<PaymentCubit>(context).makePayment(
+                          amount: (travelDistance.toInt()), currency: 'usd');
+                    },
+                    icon: Assets.VisaIcon,
+                    text: 'Pay with your visa card'),
+              ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: CustomPaymentMethodCard(
-                  icon: Assets.CashIcon, text: 'Pay Cash'),
+                  onTap: () {}, icon: Assets.CashIcon, text: 'Pay Cash'),
             ),
           ],
         ),

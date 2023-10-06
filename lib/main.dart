@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ride_glide/core/errors/simple_bloc_observer.dart';
 import 'package:ride_glide/core/utils/service_locator.dart';
 import 'package:ride_glide/features/Home/data/repos/Home_repo_implementation.dart';
@@ -9,6 +10,7 @@ import 'package:ride_glide/features/Home/peresentation/manager/Pick_destination_
 import 'package:ride_glide/features/Home/peresentation/manager/Pick_location_cubit/pick_location_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/Place_AutoComplete_cubit/place_auto_complete_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/Place_details_cubit/place_details_cubit_cubit.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
@@ -29,6 +31,7 @@ void main() async {
   setupServiceLocator();
   runApp(const RideGlide());
   Bloc.observer = SimpleBLocObserver();
+  Stripe.publishableKey = HomeRepoImpl.stripePublishablekey;
 }
 
 class RideGlide extends StatelessWidget {
@@ -56,6 +59,9 @@ class RideGlide extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               PlaceAutoCompleteCubit(getIt.get<HomeRepoImpl>()),
+        ),
+        BlocProvider(
+          create: (context) => PaymentCubit(getIt.get<HomeRepoImpl>()),
         ),
         BlocProvider(
           create: (context) => FaceBookAuthCubit(AuthRepo()),

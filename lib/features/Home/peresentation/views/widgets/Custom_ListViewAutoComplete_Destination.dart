@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/Pick_destination_cubit/pick_destination_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/Place_AutoComplete_cubit/place_auto_complete_cubit.dart';
@@ -46,6 +47,7 @@ class CustomListViewAutoCompleteDestination extends StatelessWidget {
 
                         BlocProvider.of<PlaceDetailsCubit>(context)
                             .notifyCustomButton();
+                        GoRouter.of(context).pop();
                       },
                     ),
                   ),
