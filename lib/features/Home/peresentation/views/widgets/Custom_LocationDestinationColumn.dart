@@ -56,7 +56,7 @@ class LocationDestinationColumn extends StatelessWidget {
               width: SizeConfig.screenwidth! * 0.1,
             ),
             Text(
-              '${travelDistance..toStringAsFixed(2)} Km',
+              '${travelDistance.toStringAsFixed(2)} Km',
               style: Theme.of(context).textTheme.bodyLarge,
             )
           ],

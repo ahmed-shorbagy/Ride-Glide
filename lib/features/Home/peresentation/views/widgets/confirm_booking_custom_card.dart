@@ -30,12 +30,15 @@ class CustomConfirmBookingCard extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                child: Text(
-                  '${driver.carType} | ${driver.carColor}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontWeight: FontWeight.bold),
+                child: SizedBox(
+                  width: 180,
+                  child: Text(
+                    '${driver.carType} | ${driver.carColor}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               Padding(
@@ -76,7 +79,7 @@ class CustomConfirmBookingCard extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Image.asset(
                   Assets.StyleCarIcon,
-                  scale: 1.6,
+                  scale: 1.9,
                 ),
               ),
             ],
