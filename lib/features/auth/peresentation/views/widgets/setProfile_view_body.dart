@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/updae_image_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
@@ -20,6 +23,7 @@ class SetProfileViewBody extends StatefulWidget {
 
 class _SetProfileViewBodyState extends State<SetProfileViewBody> {
   File? selectedImage;
+  String? selectedImagePath;
   GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,9 @@ class _SetProfileViewBodyState extends State<SetProfileViewBody> {
                     : Image.file(selectedImage!, fit: BoxFit.fill),
                 onTap: () async {
                   await pickImageFromGallery();
-                  UserCubit.user.image = selectedImage!.path;
+                  setState(() {
+                    selectedImagePath = selectedImage?.path ?? '';
+                  });
                 },
               ),
             ),
@@ -111,16 +117,36 @@ class _SetProfileViewBodyState extends State<SetProfileViewBody> {
                       width: SizeConfig.defaultSize! * 2,
                     ),
                     Expanded(
-                      child: CustomButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              formKey.currentState!.save();
-                              GoRouter.of(context)
-                                  .pushReplacement(AppRouter.kHomeView);
-                            }
-                          },
-                          title: const Text('Save'),
-                          backgroundColor: Theme.of(context).primaryColor),
+                      child: BlocListener<UpdaeImageCubit, UpdaeImageState>(
+                        listener: (context, state) {
+                          if (state is UpdateImageSuccess) {
+                            UserCubit.user.imageUrl = state.imageUrl;
+                          }
+                        },
+                        child: CustomButton(
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
+                                await BlocProvider.of<UpdaeImageCubit>(context)
+                                    .uploadDriverImageToFirebase(
+                                        imagePath: selectedImagePath ?? '');
+
+                                await BlocProvider.of<EmailPaswwordCubit>(
+                                        context)
+                                    .addUserToFireStore(
+                                        name: UserCubit.user.name ?? 'err',
+                                        email: UserCubit.user.email ?? 'err',
+                                        address: UserCubit.user.adress ?? 'err',
+                                        gender: UserCubit.user.gender ?? 'err',
+                                        imgaeUrl:
+                                            UserCubit.user.imageUrl ?? 'err');
+                                GoRouter.of(context)
+                                    .pushReplacement(AppRouter.kHomeView);
+                              }
+                            },
+                            title: const Text('Save'),
+                            backgroundColor: Theme.of(context).primaryColor),
+                      ),
                     ),
                   ],
                 ),

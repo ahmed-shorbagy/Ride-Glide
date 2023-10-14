@@ -29,4 +29,5 @@ class Assets {
   static const String StarIcon = "assets/Vector.png";
   static const String CashIcon = "assets/Property 1=Cash on pay.png";
   static const String VisaIcon = "assets/Property 1=Visa.png";
+  static const String PaymentSuccess = "assets/Group 6476.png";
 }

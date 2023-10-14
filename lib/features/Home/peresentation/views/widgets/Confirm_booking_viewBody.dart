@@ -1,15 +1,19 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
-import 'package:ride_glide/core/utils/api_service.dart';
+import 'package:ride_glide/core/utils/App_router.dart';
+import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
-import 'package:ride_glide/features/Home/data/repos/Home_repo_implementation.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/Pick_destination_cubit/pick_destination_cubit.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/Pick_location_cubit/pick_location_cubit.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/Ride_requests_cubit/ride_requests_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_LocationDestinationColumn.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/confirm_booking_custom_card.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_payment_Method_card.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 
 class ConfirmBookingViewBody extends StatelessWidget {
@@ -73,12 +77,40 @@ class ConfirmBookingViewBody extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: BlocListener<PaymentCubit, PaymentState>(
                 listener: (context, state) async {
-                  if (state is PaymentSuccess) {}
+                  if (state is PaymentSuccess) {
+                    GoRouter.of(context).pushReplacement(
+                        AppRouter.kPaymentSuccessView,
+                        extra: driver);
+                    await BlocProvider.of<RideRequestsCubit>(context)
+                        .requestNewRide(
+                            locationAddress: PickLocationCubit
+                                    .location?.result?.formattedAddress ??
+                                'err',
+                            destinationAddress: PickDestinationCubit
+                                    .destination?.result?.formattedAddress ??
+                                'err',
+                            time: 'Now',
+                            ridePrice: (travelDistance * 10).toString(),
+                            userUid: auth.currentUser?.uid ?? 'err',
+                            clientName: UserCubit.user.name ??
+                                UserCubit.user.fullName ??
+                                'err',
+                            clienImageUrl: UserCubit.user.imageUrl ?? 'err',
+                            paymentMethod: 'Payed with Visa',
+                            driverUID: driver.uID ?? 'err');
+                  } else if (state is PaymentFaluire) {
+                    snackBar(context, state.errMessage);
+                    debugPrint(
+                        'THIS IS THE ERROR ()()(==== )==== ${state.errMessage}');
+                  } else if (state is PaymentLoading) {
+                    snackBar(context, 'wait a moment');
+                  }
                 },
                 child: CustomPaymentMethodCard(
                     onTap: () async {
                       await BlocProvider.of<PaymentCubit>(context).makePayment(
-                          amount: (travelDistance.toInt()), currency: 'usd');
+                          amount: (travelDistance * 10).toInt(),
+                          currency: 'EGP');
                     },
                     icon: Assets.VisaIcon,
                     text: 'Pay with your visa card'),
@@ -87,7 +119,27 @@ class ConfirmBookingViewBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomPaymentMethodCard(
-                  onTap: () {}, icon: Assets.CashIcon, text: 'Pay Cash'),
+                  onTap: () async {
+                    await BlocProvider.of<RideRequestsCubit>(context)
+                        .requestNewRide(
+                            locationAddress: PickLocationCubit
+                                    .location?.result?.formattedAddress ??
+                                'err',
+                            destinationAddress: PickDestinationCubit
+                                    .destination?.result?.formattedAddress ??
+                                'err',
+                            time: 'Now',
+                            ridePrice: (travelDistance * 10).toString(),
+                            userUid: auth.currentUser?.uid ?? 'err',
+                            clientName: UserCubit.user.name ??
+                                UserCubit.user.fullName ??
+                                'err',
+                            clienImageUrl: UserCubit.user.imageUrl ?? 'err',
+                            paymentMethod: 'cash',
+                            driverUID: driver.uID ?? 'err');
+                  },
+                  icon: Assets.CashIcon,
+                  text: 'Pay Cash'),
             ),
           ],
         ),

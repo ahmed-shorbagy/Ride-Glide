@@ -6,13 +6,11 @@ import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
-import 'package:ride_glide/features/auth/peresentation/manager/cubit/phone_auth_cubit.dart';
-import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custombutton_text_and_icon.dart';
 
-class OtherSignUpOptions extends StatelessWidget {
-  const OtherSignUpOptions({
+class OtherSignInOptions extends StatelessWidget {
+  const OtherSignInOptions({
     super.key,
   });
 
@@ -26,9 +24,7 @@ class OtherSignUpOptions extends StatelessWidget {
           child: BlocConsumer<GoogleAuthCubit, GoogleAuthState>(
             listener: (context, state) {
               if (state is GoogleAuthSuccess) {
-                GoRouter.of(context).pushReplacement(
-                  AppRouter.kSetPhoneNumberView,
-                );
+                GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
               }
             },
             builder: (context, state) {
@@ -43,7 +39,7 @@ class OtherSignUpOptions extends StatelessWidget {
                   }
                 },
                 title: CustomButtonTextWithIcon(
-                  text: 'Sign up with Gmail',
+                  text: 'Sign in with Gmail',
                   icon: state is GoogleAuthLoading
                       ? Center(
                           child: CircularProgressIndicator(
@@ -64,9 +60,7 @@ class OtherSignUpOptions extends StatelessWidget {
           child: BlocConsumer<FaceBookAuthCubit, FaceBookAuthState>(
             listener: (context, state) {
               if (state is FaceBookAuthSuccess) {
-                GoRouter.of(context).pushReplacement(
-                  AppRouter.kSetPhoneNumberView,
-                );
+                GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
               }
             },
             builder: (context, state) {
@@ -81,7 +75,7 @@ class OtherSignUpOptions extends StatelessWidget {
                   }
                 },
                 title: CustomButtonTextWithIcon(
-                  text: 'Sign up with Facebook',
+                  text: 'Sign in with Facebook',
                   icon: state is FaceBookAuthLoading
                       ? Center(
                           child: CircularProgressIndicator(
@@ -103,7 +97,7 @@ class OtherSignUpOptions extends StatelessWidget {
             backgroundColor: Colors.white,
             onPressed: () {},
             title: const CustomButtonTextWithIcon(
-              text: 'Sign up with Apple',
+              text: 'Sign In with Apple',
               icon: Icon(
                 FontAwesomeIcons.apple,
                 color: Colors.black,

@@ -11,8 +11,8 @@ import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 
-class OTPView extends StatelessWidget {
-  const OTPView({
+class OTPViewForOtherSignUpOptions extends StatelessWidget {
+  const OTPViewForOtherSignUpOptions({
     super.key,
   });
 
@@ -85,7 +85,7 @@ class OTPView extends StatelessWidget {
                     listener: (context, state) {
                       if (state is PhoneAuthSuccess) {
                         GoRouter.of(context).pushReplacement(
-                          AppRouter.kSetPaswwordView,
+                          AppRouter.kSetProfileViewForOtherSignUpOptions,
                         );
                       }
                     },

@@ -5,7 +5,7 @@ class UserModel {
   String phone;
   String? gender;
   String? adress;
-  String? image;
+  String? imageUrl;
   String? oTp;
   String? city;
   String? fullName;
@@ -19,5 +19,5 @@ class UserModel {
       required this.phone,
       this.gender,
       this.adress,
-      this.image});
+      this.imageUrl});
 }

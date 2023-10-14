@@ -20,4 +20,14 @@ abstract class HomeRepo {
       {required int amount, required String currency});
   Future<Either<Faluire, void>> makePayment(
       {required int amount, required String currency});
+  Future<Either<Faluire, void>> requestNewRide(
+      {required String locationAddress,
+      required String destinationAddress,
+      required String time,
+      required String ridePrice,
+      required String userUid,
+      required String clientName,
+      required String clienImageUrl,
+      required String paymentMethod,
+      required String driverUID});
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
 import 'package:ride_glide/features/Home/peresentation/views/Choose_destination_onMap_view.dart';
@@ -6,9 +7,15 @@ import 'package:ride_glide/features/Home/peresentation/views/SelectTransport_Vie
 import 'package:ride_glide/features/Home/peresentation/views/avaialbe_cars_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/choose_Location_onMap_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/confirm_booking_view.dart';
+import 'package:ride_glide/features/Home/peresentation/views/payment_success_view.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/updae_image_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/OTP_view.dart';
+import 'package:ride_glide/features/auth/peresentation/views/otp_view_forOtherSignUpOptions.dart';
 import 'package:ride_glide/features/auth/peresentation/views/setProfile_view.dart';
 import 'package:ride_glide/features/auth/peresentation/views/set_password_view.dart';
+import 'package:ride_glide/features/auth/peresentation/views/set_phoneNumber_view.dart';
+import 'package:ride_glide/features/auth/peresentation/views/set_profile_view_for_other_signUpOptions.dart';
 import 'package:ride_glide/features/auth/peresentation/views/signInView.dart';
 import 'package:ride_glide/features/auth/peresentation/views/sign_up_view.dart';
 import 'package:ride_glide/features/auth/peresentation/views/verify_email_view.dart';
@@ -24,8 +31,13 @@ abstract class AppRouter {
   static const String kAuthWelcomeView = '/AuthWelcomeView';
   static const String kSignUpView = '/SignUpView';
   static const String kOTPView = '/OTPView';
+  static const String kOTPViewForOtherSignUpOptions =
+      '/OTPViewForOtherSignUpOptions';
   static const String kSetPaswwordView = '/SetPaswwordView';
   static const String kSetProfileView = '/SetProfileView';
+  static const String kSetProfileViewForOtherSignUpOptions =
+      '/SetProfileViewForOtherSignUpOptions';
+  static const String kSetPhoneNumberView = '/SetPhoneNumberView';
   static const String kSignInView = '/SignInView';
   static const String kverifyEmailView = '/verifyEmailView';
   static const String kSelectTransportView = '/SelectTransportView';
@@ -34,6 +46,7 @@ abstract class AppRouter {
   static const String kChooseDestinationOnMapView =
       '/ChooseDestinationOnMapView';
   static const String kConfirmBookingView = '/ConfirmBookingView';
+  static const String kPaymentSuccessView = '/PaymentSuccessView';
 
   static final router = GoRouter(
     routes: [
@@ -63,6 +76,12 @@ abstract class AppRouter {
         path: kSignUpView,
         pageBuilder: (context, state) {
           return transition(child: const SignUpView());
+        },
+      ),
+      GoRoute(
+        path: kSetProfileViewForOtherSignUpOptions,
+        pageBuilder: (context, state) {
+          return transition(child: const SetProfileViewForOtherSignUpOptions());
         },
       ),
       GoRoute(
@@ -114,9 +133,30 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
+        path: kOTPViewForOtherSignUpOptions,
+        pageBuilder: (context, state) {
+          return transition(child: const OTPViewForOtherSignUpOptions());
+        },
+      ),
+      GoRoute(
         path: kChooseDestinationOnMapView,
         pageBuilder: (context, state) {
           return transition(child: const ChooseDestinationOnMapView());
+        },
+      ),
+      GoRoute(
+        path: kSetPhoneNumberView,
+        pageBuilder: (context, state) {
+          return transition(child: const SetPhoneNumberView());
+        },
+      ),
+      GoRoute(
+        path: kPaymentSuccessView,
+        pageBuilder: (context, state) {
+          return transition(
+              child: PaymentSuccessView(
+            driver: state.extra as DriverModel,
+          ));
         },
       ),
       GoRoute(

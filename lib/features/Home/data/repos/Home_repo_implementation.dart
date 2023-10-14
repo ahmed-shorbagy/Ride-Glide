@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ride_glide/core/errors/Faluire_model.dart';
@@ -9,6 +10,7 @@ import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
 import 'package:ride_glide/features/Home/data/models/place_auto_complete_model/place_auto_complete_model.dart';
 import 'package:ride_glide/features/Home/data/models/place_details_model/place_details_model.dart';
 import 'package:ride_glide/features/Home/data/repos/Home_repo.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
@@ -213,11 +215,40 @@ class HomeRepoImpl implements HomeRepo {
               merchantDisplayName: 'Ahmed'),
         );
         await Stripe.instance.presentPaymentSheet();
-        await Stripe.instance.confirmPaymentSheetPayment();
       });
       return right(amount);
     } catch (e) {
       return left(ServerFaliure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Faluire, void>> requestNewRide(
+      {required String locationAddress,
+      required String destinationAddress,
+      required String time,
+      required String ridePrice,
+      required String userUid,
+      required String clientName,
+      required String clienImageUrl,
+      required String paymentMethod,
+      required String driverUID}) async {
+    try {
+      final ridesRef = firestore.collection('Rides').doc(auth.currentUser?.uid);
+      await ridesRef.set({
+        'locationAddress': locationAddress,
+        'destinationAddress': destinationAddress,
+        'time': time,
+        'ridePrice': ridePrice,
+        'userUid': userUid,
+        'clientName': clientName,
+        'clienImageUrl': clienImageUrl,
+        'paymentMethod': paymentMethod,
+        'driverUID': driverUID
+      });
+      return right(null);
+    } catch (e) {
+      return left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
     }
   }
 }

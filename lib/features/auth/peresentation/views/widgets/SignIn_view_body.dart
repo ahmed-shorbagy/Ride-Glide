@@ -4,7 +4,7 @@ import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_divider.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/input_field_section_for_signIn.dart';
-import 'package:ride_glide/features/auth/peresentation/views/widgets/other_signUp_options_sectoin.dart';
+import 'package:ride_glide/features/auth/peresentation/views/widgets/other_signIn_options.dart';
 
 class SignInViewBody extends StatelessWidget {
   const SignInViewBody({super.key});
@@ -41,7 +41,7 @@ class SignInViewBody extends StatelessWidget {
                   height: 20,
                 ),
                 const CustomDivider(),
-                const OtherSignUpOptions(),
+                const OtherSignInOptions(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: GestureDetector(

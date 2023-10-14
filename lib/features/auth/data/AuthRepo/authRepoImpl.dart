@@ -1,13 +1,19 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ride_glide/core/errors/Faluire_model.dart';
 
+FirebaseAuth auth = FirebaseAuth.instance;
+
 class AuthRepo {
-  FirebaseAuth auth = FirebaseAuth.instance;
   String verificationId = '';
+  static final firestore = FirebaseFirestore.instance;
   get context => null;
 
   Future<Either<Faluire, UserCredential?>> signInWithGoogle() async {
@@ -130,6 +136,48 @@ class AuthRepo {
       return right(credential);
     } catch (e) {
       debugPrint('the exception ISSSSSSS== ${e.toString()}');
+      return left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
+    }
+  }
+
+  Future<Either<Faluire, String>> uploadUserPhoto(String imagePath) async {
+    try {
+      final storage = FirebaseStorage.instance;
+      final storageRef =
+          storage.ref().child('User_photos/${auth.currentUser?.uid}.jpg');
+      final uploadTask = storageRef.putFile(File(imagePath));
+
+      // Wait for the upload to complete and get the download URL
+      final snapshot = await uploadTask.whenComplete(() {});
+      final downloadURL = await snapshot.ref.getDownloadURL();
+
+      return right(downloadURL);
+    } catch (e) {
+      // Handle upload errors
+      debugPrint('Error uploading driver photo: $e');
+      return left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
+    }
+  }
+
+  Future<Either<Faluire, void>> addNewUserToFireStore({
+    required String name,
+    required String email,
+    required String address,
+    required String gender,
+    required String imageUrl,
+  }) async {
+    try {
+      final driverRef =
+          firestore.collection('Users').doc(auth.currentUser?.uid);
+      await driverRef.set({
+        'name': name,
+        'email': email,
+        'address': address,
+        'gender': gender,
+        'imageUrl': imageUrl,
+      });
+      return right(null);
+    } catch (e) {
       return left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
     }
   }

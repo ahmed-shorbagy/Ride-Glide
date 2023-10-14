@@ -10,12 +10,14 @@ import 'package:ride_glide/features/Home/peresentation/manager/Pick_destination_
 import 'package:ride_glide/features/Home/peresentation/manager/Pick_location_cubit/pick_location_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/Place_AutoComplete_cubit/place_auto_complete_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/Place_details_cubit/place_details_cubit_cubit.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/Ride_requests_cubit/ride_requests_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/phone_auth_cubit.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/updae_image_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/firebase_options.dart';
 
@@ -32,6 +34,7 @@ void main() async {
   runApp(const RideGlide());
   Bloc.observer = SimpleBLocObserver();
   Stripe.publishableKey = HomeRepoImpl.stripePublishablekey;
+  Stripe.instance.applySettings();
 }
 
 class RideGlide extends StatelessWidget {
@@ -64,10 +67,16 @@ class RideGlide extends StatelessWidget {
           create: (context) => PaymentCubit(getIt.get<HomeRepoImpl>()),
         ),
         BlocProvider(
+          create: (context) => RideRequestsCubit(getIt.get<HomeRepoImpl>()),
+        ),
+        BlocProvider(
           create: (context) => FaceBookAuthCubit(AuthRepo()),
         ),
         BlocProvider(
           create: (context) => PhoneAuthCubit(AuthRepo()),
+        ),
+        BlocProvider(
+          create: (context) => UpdaeImageCubit(AuthRepo()),
         ),
         BlocProvider(
           create: (context) => UserCubit(),

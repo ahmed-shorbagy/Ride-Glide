@@ -144,7 +144,7 @@ class _SetPasswordviewBodyState extends State<SetPasswordviewBody> {
               },
               builder: (context, state) {
                 return CustomButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         // Password validation logic
                         if (_passwordController.text !=
@@ -160,9 +160,10 @@ class _SetPasswordviewBodyState extends State<SetPasswordviewBody> {
                           UserCubit.user.password =
                               _confirmPasswordController.text;
                         }
-                        BlocProvider.of<EmailPaswwordCubit>(context).signupUser(
-                            email: UserCubit.user.email ?? '',
-                            password: UserCubit.user.password!);
+                        await BlocProvider.of<EmailPaswwordCubit>(context)
+                            .signupUser(
+                                email: UserCubit.user.email ?? '',
+                                password: UserCubit.user.password!);
                       }
                     },
                     title: state is EmailPaswwordLoadin
