@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/errors/simple_bloc_observer.dart';
 import 'package:ride_glide/core/utils/service_locator.dart';
 import 'package:ride_glide/features/Home/data/repos/Home_repo_implementation.dart';
@@ -13,6 +14,7 @@ import 'package:ride_glide/features/Home/peresentation/manager/Place_details_cub
 import 'package:ride_glide/features/Home/peresentation/manager/Ride_requests_cubit/ride_requests_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
+import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
@@ -23,9 +25,13 @@ import 'package:ride_glide/firebase_options.dart';
 
 import 'core/utils/App_router.dart';
 import 'core/utils/app_theme.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox(kUserBox);
+  Hive.registerAdapter(UserModelAdapter());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
