@@ -6,8 +6,6 @@ import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
-import 'package:ride_glide/features/auth/peresentation/manager/cubit/phone_auth_cubit.dart';
-import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custombutton_text_and_icon.dart';
 

@@ -3,9 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
+import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/updae_image_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
@@ -103,10 +107,7 @@ class _SetProfileViewBodyState extends State<SetProfileViewBody> {
                   children: [
                     Expanded(
                       child: CustomButton(
-                          onPressed: () {
-                            debugPrint(
-                                '${UserCubit.user.city}  ${UserCubit.user.name}  ${UserCubit.user.fullName} ${UserCubit.user.adress} ${UserCubit.user.city} ${UserCubit.user.password}}');
-                          },
+                          onPressed: () {},
                           title: Text(
                             'Cancel',
                             style: Theme.of(context).textTheme.bodyLarge,
@@ -118,28 +119,25 @@ class _SetProfileViewBodyState extends State<SetProfileViewBody> {
                     ),
                     Expanded(
                       child: BlocListener<UpdaeImageCubit, UpdaeImageState>(
-                        listener: (context, state) {
+                        listener: (context, state) async {
                           if (state is UpdateImageSuccess) {
                             UserCubit.user.imageUrl = state.imageUrl;
+                            UserCubit.user.uId = auth.currentUser?.uid;
+                            await BlocProvider.of<EmailPaswwordCubit>(context)
+                                .addUserToFireStore(user: UserCubit.user);
                           }
                         },
                         child: CustomButton(
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
+
                                 await BlocProvider.of<UpdaeImageCubit>(context)
                                     .uploadDriverImageToFirebase(
                                         imagePath: selectedImagePath ?? '');
 
-                                await BlocProvider.of<EmailPaswwordCubit>(
-                                        context)
-                                    .addUserToFireStore(
-                                        name: UserCubit.user.name ?? 'err',
-                                        email: UserCubit.user.email ?? 'err',
-                                        address: UserCubit.user.adress ?? 'err',
-                                        gender: UserCubit.user.gender ?? 'err',
-                                        imgaeUrl:
-                                            UserCubit.user.imageUrl ?? 'err');
+                                var newuserbox = Hive.box<UserModel>(kUserBox);
+                                newuserbox.put('user', UserCubit.user);
                                 GoRouter.of(context)
                                     .pushReplacement(AppRouter.kHomeView);
                               }

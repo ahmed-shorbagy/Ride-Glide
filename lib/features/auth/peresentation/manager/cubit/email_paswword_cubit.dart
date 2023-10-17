@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
+import 'package:ride_glide/features/auth/data/models/user_model.dart';
 
 part 'email_paswword_state.dart';
 
@@ -34,22 +35,10 @@ class EmailPaswwordCubit extends Cubit<EmailPaswwordState> {
     });
   }
 
-  Future<void> addUserToFireStore({
-    required String name,
-    required String email,
-    required String address,
-    required String gender,
-    required String imgaeUrl,
-  }) async {
-    final driver = await authRepo.addNewUserToFireStore(
-        name: name,
-        email: email,
-        address: address,
-        gender: gender,
-        imageUrl: imgaeUrl);
-    driver.fold((faluire) {
+  Future<void> addUserToFireStore({required UserModel user}) async {
+    final responce = await authRepo.addNewUserToFireStore(user: user);
+    responce.fold((faluire) {
       emit(EmailPaswwordFaluire(errMessage: faluire.errMessage));
-      debugPrint('this is th eeroeeeaaASSA===== ${faluire.errMessage}');
     }, (success) {});
   }
 }

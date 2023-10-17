@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
@@ -13,6 +15,7 @@ import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_Loca
 import 'package:ride_glide/features/Home/peresentation/views/widgets/confirm_booking_custom_card.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_payment_Method_card.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
+import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 
@@ -78,9 +81,8 @@ class ConfirmBookingViewBody extends StatelessWidget {
               child: BlocListener<PaymentCubit, PaymentState>(
                 listener: (context, state) async {
                   if (state is PaymentSuccess) {
-                    GoRouter.of(context).pushReplacement(
-                        AppRouter.kPaymentSuccessView,
-                        extra: driver);
+                    UserModel user = Hive.box(kUserBox).get('user');
+
                     await BlocProvider.of<RideRequestsCubit>(context)
                         .requestNewRide(
                             locationAddress: PickLocationCubit
@@ -92,12 +94,13 @@ class ConfirmBookingViewBody extends StatelessWidget {
                             time: 'Now',
                             ridePrice: (travelDistance * 10).toString(),
                             userUid: auth.currentUser?.uid ?? 'err',
-                            clientName: UserCubit.user.name ??
-                                UserCubit.user.fullName ??
-                                'err',
-                            clienImageUrl: UserCubit.user.imageUrl ?? 'err',
+                            clientName: user.fullName ?? user.name ?? 'err',
+                            clienImageUrl: user.imageUrl ?? 'err',
                             paymentMethod: 'Payed with Visa',
                             driverUID: driver.uID ?? 'err');
+                    GoRouter.of(context).pushReplacement(
+                        AppRouter.kPaymentSuccessView,
+                        extra: driver);
                   } else if (state is PaymentFaluire) {
                     snackBar(context, state.errMessage);
                     debugPrint(
@@ -120,6 +123,8 @@ class ConfirmBookingViewBody extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: CustomPaymentMethodCard(
                   onTap: () async {
+                    UserModel user = Hive.box(kUserBox).get('user');
+
                     await BlocProvider.of<RideRequestsCubit>(context)
                         .requestNewRide(
                             locationAddress: PickLocationCubit
@@ -131,11 +136,9 @@ class ConfirmBookingViewBody extends StatelessWidget {
                             time: 'Now',
                             ridePrice: (travelDistance * 10).toString(),
                             userUid: auth.currentUser?.uid ?? 'err',
-                            clientName: UserCubit.user.name ??
-                                UserCubit.user.fullName ??
-                                'err',
-                            clienImageUrl: UserCubit.user.imageUrl ?? 'err',
-                            paymentMethod: 'cash',
+                            clientName: user.fullName ?? user.name ?? 'err',
+                            clienImageUrl: user.imageUrl ?? 'err',
+                            paymentMethod: 'Payed with Visa',
                             driverUID: driver.uID ?? 'err');
                   },
                   icon: Assets.CashIcon,

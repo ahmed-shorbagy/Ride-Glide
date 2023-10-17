@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/errors/Faluire_model.dart';
 import 'package:ride_glide/core/utils/api_service.dart';
 import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
@@ -14,11 +14,9 @@ import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
-  final String key = 'AIzaSyCwAe3qJC0pDaLbovyNykTSLRaY5r7N--g';
-  static const String stripePublishablekey =
-      'pk_test_51NyEvAEAdvIVZRwI3TmwwS8BxtSlr5g7XFW6JqS1gtXfb9rBSA3K7BYR1ofoDNTyURg0yZgQAC7pynV269gkMWlj00bKgQFimg';
-  final String stripeSecretkey =
-      'sk_test_51NyEvAEAdvIVZRwIxFgdtKshjB7IevsCAzDQpBfLQNdd1WPUcNwe0JOLZJBTwu6rd2wfKUbVxpPh5RI2Oe3FGpSK004tCJI1XV';
+  final String key = kGoogleKey;
+  static const String stripePublishablekey = kStripePuplishKey;
+  final String stripeSecretkey = kStripeSecretKey;
   final String types = 'geocode';
   final firestore = FirebaseFirestore.instance;
 

@@ -17,6 +17,7 @@ import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/get_user_data_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/phone_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/updae_image_cubit.dart';
@@ -30,8 +31,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox(kUserBox);
   Hive.registerAdapter(UserModelAdapter());
+  await Hive.openBox<UserModel>(kUserBox);
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -77,6 +79,9 @@ class RideGlide extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FaceBookAuthCubit(AuthRepo()),
+        ),
+        BlocProvider(
+          create: (context) => GetUserDataCubit(AuthRepo()),
         ),
         BlocProvider(
           create: (context) => PhoneAuthCubit(AuthRepo()),

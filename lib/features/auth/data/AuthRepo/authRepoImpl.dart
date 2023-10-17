@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ride_glide/core/errors/Faluire_model.dart';
+import 'package:ride_glide/features/auth/data/models/user_model.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -159,26 +160,34 @@ class AuthRepo {
     }
   }
 
-  Future<Either<Faluire, void>> addNewUserToFireStore({
-    required String name,
-    required String email,
-    required String address,
-    required String gender,
-    required String imageUrl,
-  }) async {
+  Future<Either<Faluire, void>> addNewUserToFireStore(
+      {required UserModel user}) async {
     try {
       final driverRef =
           firestore.collection('Users').doc(auth.currentUser?.uid);
-      await driverRef.set({
-        'name': name,
-        'email': email,
-        'address': address,
-        'gender': gender,
-        'imageUrl': imageUrl,
-      });
+      await driverRef.set(user.toMap());
       return right(null);
     } catch (e) {
       return left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
+    }
+  }
+
+  Future<Either<Faluire, UserModel>> getUserData({required String uid}) async {
+    try {
+      final userDocument =
+          FirebaseFirestore.instance.collection('Users').doc(uid);
+
+      final query = await userDocument.get();
+
+      if (query.exists) {
+        final userData = query.data() as Map<String, dynamic>;
+        final user = UserModel.fromFireStore(userData);
+        return Right(user);
+      } else {
+        return Left(FirbaseFaluire.fromFirebaseAuth('User not found'));
+      }
+    } catch (e) {
+      return Left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
     }
   }
 }

@@ -23,6 +23,8 @@ class UserModel extends HiveObject {
   String? city;
   @HiveField(9)
   String? fullName;
+  @HiveField(10)
+  String? uId;
   UserModel(
       {this.name,
       this.fullName,
@@ -33,5 +35,35 @@ class UserModel extends HiveObject {
       required this.phone,
       this.gender,
       this.adress,
-      this.imageUrl});
+      this.imageUrl,
+      this.uId});
+
+  factory UserModel.fromFireStore(Map<String, dynamic> user) {
+    return UserModel(
+        phone: user['phone'],
+        city: user['city'],
+        uId: user['UId'],
+        adress: user['address'],
+        fullName: user['fullName'],
+        email: user['email'],
+        gender: user['gender'],
+        name: user['name'],
+        imageUrl: user['imageUrl']);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'password': password,
+      'gender': gender,
+      'address': adress,
+      'imageUrl': imageUrl,
+      'oTp': oTp,
+      'city': city,
+      'fullName': fullName,
+      'UId': uId,
+      'phone': phone
+    };
+  }
 }

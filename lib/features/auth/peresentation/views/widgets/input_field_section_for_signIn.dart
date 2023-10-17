@@ -2,9 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
+import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
+import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/get_user_data_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_text_search_field.dart';
 
@@ -31,79 +36,98 @@ class _InputFieldsSectionForSignInState
     return Form(
       autovalidateMode: autoValidateMode,
       key: formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: CustomTextField(
-              onChanged: (value) {
-                email = value;
+      child: BlocListener<GetUserDataCubit, GetUserDataState>(
+        listener: (context, state) {
+          if (state is GetUserDataSuccess) {
+            var newuserbox = Hive.box<UserModel>(kUserBox);
+            newuserbox.clear();
+            UserModel user = state.user;
+            newuserbox.put('user', user);
+
+            GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+
+            debugPrint(
+                'THIS IS THE USER INFO   ${newuserbox.values.first.adress} ${newuserbox.values.first.city}     ${newuserbox.values.first.name}  ${newuserbox.values.first.email}  ${newuserbox.values.first.gender}  ${newuserbox.values.first.phone}  ${newuserbox.values.first.imageUrl}  ${newuserbox.values.first.uId}');
+          } else if (state is GetUserDataFaluire) {
+            snackBar(context, state.errMessage);
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: CustomTextField(
+                onChanged: (value) {
+                  email = value;
+                },
+                hintText: ' Enter Your Email',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: CustomTextField(
+                hintText: 'Enter Your Password',
+                onChanged: (value) {
+                  password = value;
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 6,
+            ),
+            GestureDetector(
+              onTap: () {
+                GoRouter.of(context)
+                    .pushReplacement(AppRouter.kverifyEmailView);
               },
-              hintText: ' Enter Your Email',
+              child: Text(
+                'Forget password?',
+                textAlign: TextAlign.right,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: Colors.red, fontWeight: FontWeight.w700),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: CustomTextField(
-              hintText: 'Enter Your Password',
-              onChanged: (value) {
-                password = value;
+            const SizedBox(
+              height: 38,
+            ),
+            BlocConsumer<EmailPaswwordCubit, EmailPaswwordState>(
+              listener: (context, state) async {
+                if (state is EmailPaswwordSuccess) {
+                  await BlocProvider.of<GetUserDataCubit>(context)
+                      .getUserData(uId: auth.currentUser?.uid ?? "err");
+                }
+                if (state is EmailPaswwordFaluire) {
+                  snackBar(context, state.errMessage);
+                }
+              },
+              builder: (context, state) {
+                return CustomButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        BlocProvider.of<EmailPaswwordCubit>(context)
+                            .signInUser(email: email!, password: password!);
+                      }
+                    },
+                    title: state is EmailPaswwordLoadin
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Text(
+                            'Sign In',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: Colors.white, fontSize: 16),
+                          ),
+                    backgroundColor: Theme.of(context).primaryColor);
               },
             ),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          GestureDetector(
-            onTap: () {
-              GoRouter.of(context).pushReplacement(AppRouter.kverifyEmailView);
-            },
-            child: Text(
-              'Forget password?',
-              textAlign: TextAlign.right,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Colors.red, fontWeight: FontWeight.w700),
-            ),
-          ),
-          const SizedBox(
-            height: 38,
-          ),
-          BlocConsumer<EmailPaswwordCubit, EmailPaswwordState>(
-            listener: (context, state) {
-              if (state is EmailPaswwordSuccess) {
-                GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-              }
-              if (state is EmailPaswwordFaluire) {
-                snackBar(context, state.errMessage);
-              }
-            },
-            builder: (context, state) {
-              return CustomButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      BlocProvider.of<EmailPaswwordCubit>(context)
-                          .signInUser(email: email!, password: password!);
-                    }
-                  },
-                  title: state is EmailPaswwordLoadin
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Text(
-                          'Sign In',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(color: Colors.white, fontSize: 16),
-                        ),
-                  backgroundColor: Theme.of(context).primaryColor);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
