@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -33,6 +32,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     getBytesFromAsset(Assets.MarkerIcon, 100).then((onValue) {
       markerIcon = BitmapDescriptor.fromBytes(onValue);
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override

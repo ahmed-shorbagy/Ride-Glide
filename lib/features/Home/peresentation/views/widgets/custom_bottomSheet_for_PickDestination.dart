@@ -42,6 +42,7 @@ class _CustomDestinationBottomsheetState
             ),
           ),
           CustomRideInfoTextFields(
+            hintText: 'TO',
             controller: PickDestinationCubit.destinationPlacecontroller,
           ),
           const Divider(

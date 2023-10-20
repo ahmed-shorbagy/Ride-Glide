@@ -14,6 +14,7 @@ import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
+
   final String key = kGoogleKey;
   static const String stripePublishablekey = kStripePuplishKey;
   final String stripeSecretkey = kStripeSecretKey;
@@ -247,6 +248,33 @@ class HomeRepoImpl implements HomeRepo {
       return right(null);
     } catch (e) {
       return left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
+    }
+  }
+
+  static Stream<bool?> listenForRideConfirmation({required String rideId}) {
+    try {
+      final DocumentReference rideDocRef =
+          FirebaseFirestore.instance.collection('Rides').doc(rideId);
+
+      final Stream<bool?> rideConfirmationStream =
+          rideDocRef.snapshots().map((snapshot) {
+        final data = snapshot.data() as Map<String, dynamic>;
+        final rideStatus = data[
+            'status']; // Assuming you store the ride status in a field named 'status'
+
+        if (rideStatus == true) {
+          return true;
+        } else if (rideStatus == false) {
+          return false;
+        } else {
+          // Handle other statuses if necessary
+          return null; // Default to null for unknown statuses
+        }
+      });
+
+      return rideConfirmationStream;
+    } catch (e) {
+      return Stream.error('Error: $e');
     }
   }
 }

@@ -161,10 +161,9 @@ class AuthRepo {
   }
 
   Future<Either<Faluire, void>> addNewUserToFireStore(
-      {required UserModel user}) async {
+      {required UserModel user, required String uid}) async {
     try {
-      final driverRef =
-          firestore.collection('Users').doc(auth.currentUser?.uid);
+      final driverRef = firestore.collection('Users').doc(uid);
       await driverRef.set(user.toMap());
       return right(null);
     } catch (e) {

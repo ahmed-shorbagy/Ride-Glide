@@ -35,8 +35,9 @@ class EmailPaswwordCubit extends Cubit<EmailPaswwordState> {
     });
   }
 
-  Future<void> addUserToFireStore({required UserModel user}) async {
-    final responce = await authRepo.addNewUserToFireStore(user: user);
+  Future<void> addUserToFireStore(
+      {required UserModel user, required String uid}) async {
+    final responce = await authRepo.addNewUserToFireStore(user: user, uid: uid);
     responce.fold((faluire) {
       emit(EmailPaswwordFaluire(errMessage: faluire.errMessage));
     }, (success) {});

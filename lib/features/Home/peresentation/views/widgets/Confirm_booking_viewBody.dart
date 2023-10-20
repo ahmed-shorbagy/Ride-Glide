@@ -16,7 +16,6 @@ import 'package:ride_glide/features/Home/peresentation/views/widgets/confirm_boo
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_payment_Method_card.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
-import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 
 class ConfirmBookingViewBody extends StatelessWidget {
@@ -81,7 +80,9 @@ class ConfirmBookingViewBody extends StatelessWidget {
               child: BlocListener<PaymentCubit, PaymentState>(
                 listener: (context, state) async {
                   if (state is PaymentSuccess) {
-                    UserModel user = Hive.box(kUserBox).get('user');
+                    Box<UserModel> userBox = Hive.box<UserModel>(kUserBox);
+
+                    UserModel user = userBox.values.first;
 
                     await BlocProvider.of<RideRequestsCubit>(context)
                         .requestNewRide(
@@ -97,7 +98,7 @@ class ConfirmBookingViewBody extends StatelessWidget {
                             clientName: user.fullName ?? user.name ?? 'err',
                             clienImageUrl: user.imageUrl ?? 'err',
                             paymentMethod: 'Payed with Visa',
-                            driverUID: driver.uID ?? 'err');
+                            driverUID: driver.uID!);
                     GoRouter.of(context).pushReplacement(
                         AppRouter.kPaymentSuccessView,
                         extra: driver);
@@ -123,7 +124,9 @@ class ConfirmBookingViewBody extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: CustomPaymentMethodCard(
                   onTap: () async {
-                    UserModel user = Hive.box(kUserBox).get('user');
+                    var userBox = Hive.box<UserModel>(kUserBox);
+
+                    UserModel user = userBox.values.first;
 
                     await BlocProvider.of<RideRequestsCubit>(context)
                         .requestNewRide(
@@ -139,7 +142,10 @@ class ConfirmBookingViewBody extends StatelessWidget {
                             clientName: user.fullName ?? user.name ?? 'err',
                             clienImageUrl: user.imageUrl ?? 'err',
                             paymentMethod: 'Payed with Visa',
-                            driverUID: driver.uID ?? 'err');
+                            driverUID: driver.uID!);
+                    GoRouter.of(context).pushReplacement(
+                        AppRouter.kPaymentSuccessView,
+                        extra: driver);
                   },
                   icon: Assets.CashIcon,
                   text: 'Pay Cash'),

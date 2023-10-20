@@ -122,9 +122,11 @@ class _SetProfileViewBodyState extends State<SetProfileViewBody> {
                         listener: (context, state) async {
                           if (state is UpdateImageSuccess) {
                             UserCubit.user.imageUrl = state.imageUrl;
-                            UserCubit.user.uId = auth.currentUser?.uid;
+
                             await BlocProvider.of<EmailPaswwordCubit>(context)
-                                .addUserToFireStore(user: UserCubit.user);
+                                .addUserToFireStore(
+                                    user: UserCubit.user,
+                                    uid: UserCubit.user.uId ?? 'err');
                           }
                         },
                         child: CustomButton(
@@ -137,7 +139,11 @@ class _SetProfileViewBodyState extends State<SetProfileViewBody> {
                                         imagePath: selectedImagePath ?? '');
 
                                 var newuserbox = Hive.box<UserModel>(kUserBox);
-                                newuserbox.put('user', UserCubit.user);
+                                if (newuserbox.isNotEmpty) {
+                                  newuserbox.deleteAt(0);
+                                }
+
+                                await newuserbox.add(UserCubit.user);
                                 GoRouter.of(context)
                                     .pushReplacement(AppRouter.kHomeView);
                               }

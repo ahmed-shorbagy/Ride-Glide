@@ -37,6 +37,8 @@ class FirbaseFaluire extends Faluire {
             errMessage: 'The account already exists for that email.');
       case 'user-not-found':
         return FirbaseFaluire(errMessage: 'No user found for that email.');
+      case 'User not found':
+        return FirbaseFaluire(errMessage: 'User not found');
       case '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.':
         return FirbaseFaluire(
             errMessage: 'Wrong password provided for that user.');

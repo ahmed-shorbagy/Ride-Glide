@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
@@ -136,6 +137,7 @@ class _SetPasswordviewBodyState extends State<SetPasswordviewBody> {
             child: BlocConsumer<EmailPaswwordCubit, EmailPaswwordState>(
               listener: (context, state) {
                 if (state is EmailPaswwordSuccess) {
+                  UserCubit.user.uId = auth.currentUser!.uid;
                   GoRouter.of(context)
                       .pushReplacement(AppRouter.kSetProfileView);
                 } else if (state is EmailPaswwordFaluire) {

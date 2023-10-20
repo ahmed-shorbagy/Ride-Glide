@@ -11,7 +11,6 @@ import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/get_user_data_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
-import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custombutton_text_and_icon.dart';
 
@@ -23,12 +22,15 @@ class OtherSignInOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetUserDataCubit, GetUserDataState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is GetUserDataSuccess) {
           var newuserbox = Hive.box<UserModel>(kUserBox);
-          newuserbox.clear();
+          if (newuserbox.isNotEmpty) {
+            newuserbox.deleteAt(0);
+          }
+
           UserModel user = state.user;
-          newuserbox.put('user', user);
+          await newuserbox.add(user);
           debugPrint(
               'THIS IS THE USER INFO   ${newuserbox.values.first.adress} ${newuserbox.values.first.city}     ${newuserbox.values.first.name}  ${newuserbox.values.first.email}  ${newuserbox.values.first.gender}  ${newuserbox.values.first.phone}  ${newuserbox.values.first.imageUrl}  ${newuserbox.values.first.uId}');
           GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
@@ -43,7 +45,8 @@ class OtherSignInOptions extends StatelessWidget {
               listener: (context, state) async {
                 if (state is GoogleAuthSuccess) {
                   await BlocProvider.of<GetUserDataCubit>(context)
-                      .getUserData(uId: auth.currentUser?.uid ?? "err");
+                      .getUserData(uId: auth.currentUser!.uid);
+                  debugPrint(' THIS IS THE USER iD  ${auth.currentUser!.uid}');
                 }
               },
               builder: (context, state) {

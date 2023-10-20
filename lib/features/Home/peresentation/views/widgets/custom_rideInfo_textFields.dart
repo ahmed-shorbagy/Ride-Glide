@@ -9,8 +9,10 @@ class CustomRideInfoTextFields extends StatelessWidget {
   const CustomRideInfoTextFields({
     super.key,
     required this.controller,
+    required this.hintText,
   });
   final TextEditingController controller;
+  final String hintText;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +25,7 @@ class CustomRideInfoTextFields extends StatelessWidget {
               await BlocProvider.of<PlaceAutoCompleteCubit>(context)
                   .placeAutoComplete(searchedInput: value);
             },
-            hintText: 'From',
+            hintText: hintText,
             suffixIcon: GestureDetector(
               onTap: () {
                 PickLocationCubit.locationPlaceController.text =

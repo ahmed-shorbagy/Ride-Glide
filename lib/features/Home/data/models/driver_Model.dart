@@ -38,6 +38,6 @@ class DriverModel {
         name: driver['name'],
         status: driver['status'],
         imageUrl: driver['imageUrl'],
-        uID: driver['uId']);
+        uID: driver['UId']);
   }
 }

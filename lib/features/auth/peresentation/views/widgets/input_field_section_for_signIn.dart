@@ -10,6 +10,7 @@ import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/get_user_data_cubit.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_text_search_field.dart';
 
@@ -37,17 +38,17 @@ class _InputFieldsSectionForSignInState
       autovalidateMode: autoValidateMode,
       key: formKey,
       child: BlocListener<GetUserDataCubit, GetUserDataState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is GetUserDataSuccess) {
             var newuserbox = Hive.box<UserModel>(kUserBox);
-            newuserbox.clear();
+            if (newuserbox.isNotEmpty) {
+              newuserbox.deleteAt(0);
+            }
             UserModel user = state.user;
-            newuserbox.put('user', user);
-
-            GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-
-            debugPrint(
-                'THIS IS THE USER INFO   ${newuserbox.values.first.adress} ${newuserbox.values.first.city}     ${newuserbox.values.first.name}  ${newuserbox.values.first.email}  ${newuserbox.values.first.gender}  ${newuserbox.values.first.phone}  ${newuserbox.values.first.imageUrl}  ${newuserbox.values.first.uId}');
+            await newuserbox.add(user);
+            if (context.mounted) {
+              GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+            }
           } else if (state is GetUserDataFaluire) {
             snackBar(context, state.errMessage);
           }
@@ -98,6 +99,7 @@ class _InputFieldsSectionForSignInState
                 if (state is EmailPaswwordSuccess) {
                   await BlocProvider.of<GetUserDataCubit>(context)
                       .getUserData(uId: auth.currentUser?.uid ?? "err");
+                  UserCubit.user.uId = auth.currentUser?.uid;
                 }
                 if (state is EmailPaswwordFaluire) {
                   snackBar(context, state.errMessage);

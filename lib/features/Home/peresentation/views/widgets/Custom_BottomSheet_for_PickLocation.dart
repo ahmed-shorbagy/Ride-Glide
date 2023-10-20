@@ -40,6 +40,7 @@ class _CustomLocationBottomSheetState extends State<CustomLocationBottomSheet> {
             ),
           ),
           CustomRideInfoTextFields(
+            hintText: 'From',
             controller: PickLocationCubit.locationPlaceController,
           ),
           const Divider(

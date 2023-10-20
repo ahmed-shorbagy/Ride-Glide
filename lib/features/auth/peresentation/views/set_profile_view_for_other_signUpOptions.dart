@@ -129,10 +129,22 @@ class _SetProfileViewBodyState
                           listener: (context, state) async {
                             if (state is UpdateImageSuccess) {
                               UserCubit.user.imageUrl = state.imageUrl;
-                              UserCubit.user.uId = auth.currentUser?.uid ?? '';
 
                               await BlocProvider.of<EmailPaswwordCubit>(context)
-                                  .addUserToFireStore(user: UserCubit.user);
+                                  .addUserToFireStore(
+                                      user: UserCubit.user,
+                                      uid: auth.currentUser!.uid);
+                              debugPrint(
+                                  'THISIS THE stored user UId    = = = = = = = = = = = ${UserCubit.user.uId}');
+
+                              var newuserbox = Hive.box<UserModel>(kUserBox);
+                              if (newuserbox.isNotEmpty) {
+                                newuserbox.deleteAt(0);
+                              }
+
+                              await newuserbox.add(UserCubit.user);
+                              GoRouter.of(context)
+                                  .pushReplacement(AppRouter.kHomeView);
                             }
                           },
                           child: CustomButton(
@@ -143,12 +155,6 @@ class _SetProfileViewBodyState
                                           context)
                                       .uploadDriverImageToFirebase(
                                           imagePath: selectedImagePath ?? '');
-
-                                  GoRouter.of(context)
-                                      .pushReplacement(AppRouter.kHomeView);
-                                  var newuserbox =
-                                      Hive.box<UserModel>(kUserBox);
-                                  newuserbox.put('user', UserCubit.user);
                                 }
                               },
                               title: const Text('Save'),

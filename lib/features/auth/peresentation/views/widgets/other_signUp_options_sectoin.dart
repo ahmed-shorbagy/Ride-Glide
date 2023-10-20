@@ -4,8 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/core/utils/methods.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custombutton_text_and_icon.dart';
 
@@ -27,6 +29,8 @@ class OtherSignUpOptions extends StatelessWidget {
                 GoRouter.of(context).pushReplacement(
                   AppRouter.kSetPhoneNumberView,
                 );
+                UserCubit.user.uId = auth.currentUser!.uid;
+                debugPrint(' THIS IS THE USER iD  ${auth.currentUser!.uid}');
               }
             },
             builder: (context, state) {
