@@ -92,6 +92,14 @@ class ConfirmBookingViewBody extends StatelessWidget {
                             destinationAddress: PickDestinationCubit
                                     .destination?.result?.formattedAddress ??
                                 'err',
+                            lat: PickLocationCubit
+                                    .location?.result?.geometry?.location?.lat
+                                    ?.toDouble() ??
+                                0,
+                            lng: PickLocationCubit
+                                    .location?.result?.geometry?.location?.lng
+                                    ?.toDouble() ??
+                                0,
                             time: 'Now',
                             ridePrice: (travelDistance * 10).toString(),
                             userUid: auth.currentUser?.uid ?? 'err',
@@ -136,6 +144,14 @@ class ConfirmBookingViewBody extends StatelessWidget {
                             destinationAddress: PickDestinationCubit
                                     .destination?.result?.formattedAddress ??
                                 'err',
+                            lat: PickLocationCubit
+                                    .location?.result?.geometry?.location?.lat
+                                    ?.toDouble() ??
+                                0,
+                            lng: PickLocationCubit
+                                    .location?.result?.geometry?.location?.lng
+                                    ?.toDouble() ??
+                                0,
                             time: 'Now',
                             ridePrice: (travelDistance * 10).toString(),
                             userUid: auth.currentUser?.uid ?? 'err',

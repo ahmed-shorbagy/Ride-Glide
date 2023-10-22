@@ -231,7 +231,9 @@ class HomeRepoImpl implements HomeRepo {
       required String clientName,
       required String clienImageUrl,
       required String paymentMethod,
-      required String driverUID}) async {
+      required String driverUID,
+      required double lat,
+      required double lng}) async {
     try {
       final ridesRef = firestore.collection('Rides').doc(auth.currentUser?.uid);
       await ridesRef.set({
@@ -243,7 +245,9 @@ class HomeRepoImpl implements HomeRepo {
         'clientName': clientName,
         'clienImageUrl': clienImageUrl,
         'paymentMethod': paymentMethod,
-        'driverUID': driverUID
+        'driverUID': driverUID,
+        'lat': lat,
+        'lng': lng
       });
       return right(null);
     } catch (e) {
@@ -275,6 +279,17 @@ class HomeRepoImpl implements HomeRepo {
       return rideConfirmationStream;
     } catch (e) {
       return Stream.error('Error: $e');
+    }
+  }
+
+  static Future<Either<Faluire, void>> deleteTHeRide(
+      {required String uid}) async {
+    try {
+      final ridesRef = FirebaseFirestore.instance.collection('Rides').doc(uid);
+      await ridesRef.delete();
+      return right(null);
+    } catch (e) {
+      return left(FirbaseFaluire.fromFirebaseAuth(e.toString()));
     }
   }
 }

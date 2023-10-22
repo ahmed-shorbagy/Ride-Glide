@@ -29,5 +29,7 @@ abstract class HomeRepo {
       required String clientName,
       required String clienImageUrl,
       required String paymentMethod,
-      required String driverUID});
+      required String driverUID,
+      required double lat,
+      required double lng});
 }

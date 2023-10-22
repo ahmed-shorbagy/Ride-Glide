@@ -46,9 +46,7 @@ class _InputFieldsSectionForSignInState
             }
             UserModel user = state.user;
             await newuserbox.add(user);
-            if (context.mounted) {
-              GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-            }
+            if (context.mounted) {}
           } else if (state is GetUserDataFaluire) {
             snackBar(context, state.errMessage);
           }

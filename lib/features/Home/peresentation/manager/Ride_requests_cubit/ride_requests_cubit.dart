@@ -16,7 +16,9 @@ class RideRequestsCubit extends Cubit<RideRequestsState> {
       required String clientName,
       required String clienImageUrl,
       required String paymentMethod,
-      required String driverUID}) async {
+      required String driverUID,
+      required double lat,
+      required double lng}) async {
     emit(RideRequestsLoading());
     var request = await homeRepo.requestNewRide(
         driverUID: driverUID,
@@ -27,7 +29,9 @@ class RideRequestsCubit extends Cubit<RideRequestsState> {
         userUid: userUid,
         clientName: clientName,
         clienImageUrl: clienImageUrl,
-        paymentMethod: paymentMethod);
+        paymentMethod: paymentMethod,
+        lat: lat,
+        lng: lng);
 
     request.fold((faluire) {
       emit(RideRequestsFaluire(errMessage: faluire.errMessage));

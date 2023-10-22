@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
+import 'package:ride_glide/constants.dart';
+import 'package:ride_glide/features/auth/data/models/user_model.dart';
 
 import '../../../../../core/utils/App_router.dart';
 import 'sliding_text.dart';
@@ -63,7 +66,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
     bool isConnected = await checkInternetConnectivity();
     if (isConnected) {
       Future.delayed(const Duration(seconds: 3), () {
-        GoRouter.of(context).pushReplacement(AppRouter.kOnBoardingView);
+        var userBox = Hive.box<UserModel>(kUserBox);
+        if (userBox.isEmpty) {
+          GoRouter.of(context).pushReplacement(AppRouter.kOnBoardingView);
+        } else {
+          GoRouter.of(context).push(AppRouter.kHomeView);
+        }
       });
     }
   }

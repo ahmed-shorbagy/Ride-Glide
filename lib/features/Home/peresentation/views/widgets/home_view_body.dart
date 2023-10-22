@@ -165,17 +165,4 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       ],
     );
   }
-
-  void addCustomIcon() {
-    BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size.fromRadius(24)),
-      Assets.MarkerIcon,
-    ).then(
-      (icon) {
-        setState(() {
-          markerIcon = icon;
-        });
-      },
-    );
-  }
 }
