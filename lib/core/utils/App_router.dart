@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
 import 'package:ride_glide/features/Home/peresentation/views/Choose_destination_onMap_view.dart';
+import 'package:ride_glide/features/Home/peresentation/views/Profile_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/SelectTransport_View.dart';
 import 'package:ride_glide/features/Home/peresentation/views/avaialbe_cars_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/choose_Location_onMap_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/confirm_booking_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/payment_success_view.dart';
-import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
-import 'package:ride_glide/features/auth/peresentation/manager/cubit/updae_image_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/OTP_view.dart';
 import 'package:ride_glide/features/auth/peresentation/views/otp_view_forOtherSignUpOptions.dart';
 import 'package:ride_glide/features/auth/peresentation/views/setProfile_view.dart';
@@ -47,6 +45,7 @@ abstract class AppRouter {
       '/ChooseDestinationOnMapView';
   static const String kConfirmBookingView = '/ConfirmBookingView';
   static const String kPaymentSuccessView = '/PaymentSuccessView';
+  static const String kProfileView = '/ProfileView';
 
   static final router = GoRouter(
     routes: [
@@ -148,6 +147,12 @@ abstract class AppRouter {
         path: kSetPhoneNumberView,
         pageBuilder: (context, state) {
           return transition(child: const SetPhoneNumberView());
+        },
+      ),
+      GoRoute(
+        path: kProfileView,
+        pageBuilder: (context, state) {
+          return transition(child: const ProfileView());
         },
       ),
       GoRoute(
