@@ -30,4 +30,11 @@ class Assets {
   static const String CashIcon = "assets/Property 1=Cash on pay.png";
   static const String VisaIcon = "assets/Property 1=Visa.png";
   static const String PaymentSuccess = "assets/Group 6476.png";
+  static const String HistoryIcon = "assets/History.png";
+  static const String ComplainIcon = "assets/Complain.png";
+  static const String HelpIcon = "assets/Help and Support.png";
+  static const String SettingsIcon = "assets/Settings.png";
+  static const String RefferalIcon = "assets/Referral.png";
+  static const String LogOutIcon = "assets/Logout.png";
+  static const String AboutUsIcon = "assets/About Us.png";
 }

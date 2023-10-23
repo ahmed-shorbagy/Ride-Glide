@@ -30,9 +30,10 @@ class _CustomOnBoardingButtonState extends State<CustomOnBoardingButton> {
       child: Container(
         width: 70,
         height: 70,
-        decoration: const ShapeDecoration(
-          color: Color(0xFF08B783),
-          shape: OvalBorder(),
+        decoration: ShapeDecoration(
+          color: const Color(0xFF08B783),
+          shape: OvalBorder(
+              side: BorderSide(color: Theme.of(context).primaryColor)),
         ),
         child: pageController!.page == 2
             ? Center(

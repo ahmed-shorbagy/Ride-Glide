@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 class CustomPhoneField extends StatelessWidget {
-  const CustomPhoneField({
-    super.key,
-    required this.autoValidateMode,
-    required this.onChanged,
-  });
+  const CustomPhoneField(
+      {super.key,
+      required this.autoValidateMode,
+      required this.onChanged,
+      this.initialValue});
 
   final AutovalidateMode autoValidateMode;
   final void Function(PhoneNumber?) onChanged;
+  final PhoneNumber? initialValue;
   @override
   Widget build(BuildContext context) {
     return PhoneFormField(
+      initialValue: initialValue,
       defaultCountry: IsoCode.EG,
       autovalidateMode: autoValidateMode,
       validator: PhoneValidator.compose([

@@ -13,9 +13,10 @@ class CustomNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const ShapeDecoration(
-        shape: OvalBorder(),
-        color: Color(0xffD0D0D0),
+      decoration: ShapeDecoration(
+        shape:
+            OvalBorder(side: BorderSide(color: Theme.of(context).primaryColor)),
+        color: const Color(0xffD0D0D0),
       ),
       height: 80,
       width: 80,
