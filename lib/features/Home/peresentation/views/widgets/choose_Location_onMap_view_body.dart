@@ -73,6 +73,7 @@ class _ChooseLocationOnMapViewBodyState
             }
           },
           child: GoogleMap(
+              zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
               onMapCreated: (controller) {
                 setState(() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_nav_drawer.dart';
 
 import 'widgets/home_view_body.dart';
 
@@ -9,7 +10,7 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _HomeViewState extends State<HomeView> {
   @override

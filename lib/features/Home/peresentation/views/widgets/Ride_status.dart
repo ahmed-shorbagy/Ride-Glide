@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/features/Home/data/repos/Home_repo_implementation.dart';
+import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 
@@ -36,8 +37,6 @@ class RideStatus extends StatelessWidget {
               if (rideConfirmed == null) {
                 return const Text('Please Wait ...');
               } else if (rideConfirmed) {
-                HomeRepoImpl.deleteTHeRide(
-                    uid: Hive.box<UserModel>(kUserBox).values.first.uId!);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -52,9 +51,12 @@ class RideStatus extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: CustomButton(
-                        onPressed: () {
-                          GoRouter.of(context)
-                              .pushReplacement(AppRouter.kHomeView);
+                        onPressed: () async {
+                          GoRouter.of(context).pop();
+                          GoRouter.of(context).pop();
+                          GoRouter.of(context).pop();
+                          await HomeRepoImpl.deleteTHeRide(
+                              uid: auth.currentUser!.uid);
                         },
                         title: const Text('Start Ride'),
                         backgroundColor: Theme.of(context).primaryColor,

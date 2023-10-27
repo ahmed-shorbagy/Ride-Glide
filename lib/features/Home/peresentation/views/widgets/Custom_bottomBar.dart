@@ -118,7 +118,8 @@ class _CustomBottombarState extends State<CustomBottombar> {
                             offerIconPressed = false;
                             profileIconPressed = true;
                           });
-                          GoRouter.of(context).push(AppRouter.kProfileView);
+                          GoRouter.of(context)
+                              .pushReplacement(AppRouter.kProfileView);
                         },
                         imageName: Assets.UserIcon,
                         label: 'Profile',

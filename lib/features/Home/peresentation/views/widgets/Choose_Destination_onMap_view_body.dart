@@ -51,13 +51,13 @@ class _ChooseLocationOnMapViewBodyState
         .getPlaceDetailsFromLocation(
             latitude: currentPosition.latitude,
             longitude: currentPosition.longitude);
-    BlocProvider.of<PlaceDetailsCubit>(context).notifyCustomButton();
 
     mapController?.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(target: tappedPosition, zoom: 17),
       ),
     );
+    BlocProvider.of<PlaceDetailsCubit>(context).notifyCustomButton();
   }
 
   @override
@@ -73,6 +73,7 @@ class _ChooseLocationOnMapViewBodyState
             }
           },
           child: GoogleMap(
+              zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
               onMapCreated: (controller) {
                 setState(() {
@@ -148,6 +149,10 @@ class _ChooseLocationOnMapViewBodyState
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     backgroundColor: Theme.of(context).primaryColor);
+              } else if (state is PickDestinationFaluire) {
+                debugPrint(
+                    'THIS SIS THE RERORO MESSGAE ==== ${state.errMessage}');
+                return const SizedBox();
               } else {
                 return const SizedBox();
               }

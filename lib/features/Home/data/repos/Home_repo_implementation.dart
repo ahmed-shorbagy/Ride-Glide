@@ -15,7 +15,6 @@ import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
 
-  final String key = kGoogleKey;
   static const String stripePublishablekey = kStripePuplishKey;
   final String stripeSecretkey = kStripeSecretKey;
   final String types = 'geocode';
@@ -54,7 +53,7 @@ class HomeRepoImpl implements HomeRepo {
     try {
       var data = await apiService.get(
           url:
-              'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchInput&types=$types&components=country:EG&key=$key');
+              'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchInput&types=$types&components=country:EG&key=$kGoogleKey');
 
       List<PlaceAutoCompleteModel> placesList = [];
       debugPrint('this is theeee  no ListTTTTTTTTTTTTTT====== $placesList');
@@ -79,7 +78,7 @@ class HomeRepoImpl implements HomeRepo {
     try {
       var data = await apiService.get(
           url:
-              'https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeID&fields=name,geometry,formatted_address,website,reviews&key=$key');
+              'https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeID&fields=name,geometry,formatted_address,website,reviews&key=$kGoogleKey');
       debugPrint(
           'THIS IS THE HHHHHHHHHHHHHHHHHHHHHHTTTTTTTTTTTTTTTYYYYYYY     ${PlaceDetailsModel.fromJson(data)}');
       return right(PlaceDetailsModel.fromJson(data));
@@ -97,7 +96,8 @@ class HomeRepoImpl implements HomeRepo {
     try {
       var data = await apiService.get(
           url:
-              'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$key');
+              'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$kGoogleKey');
+
       final placeId = data['results'][0]['place_id'];
 
       return right(placeId);
@@ -149,7 +149,7 @@ class HomeRepoImpl implements HomeRepo {
     try {
       var data = await apiService.get(
           url:
-              'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$key');
+              'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$kGoogleKey');
       final placeId = data['results'][0]["formatted_address"];
 
       return right(truncateStringAfterWords(placeId, 10));
