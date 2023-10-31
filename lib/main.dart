@@ -15,6 +15,7 @@ import 'package:ride_glide/features/Home/peresentation/manager/Ride_requests_cub
 import 'package:ride_glide/features/Home/peresentation/manager/payment_cubit/payment_cubit.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/change_password_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/get_user_data_cubit.dart';
@@ -55,6 +56,9 @@ class RideGlide extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => GoogleAuthCubit(AuthRepo()),
+        ),
+        BlocProvider(
+          create: (context) => ChangePasswordCubit(),
         ),
         BlocProvider(
           create: (context) => LogOutCubit(),

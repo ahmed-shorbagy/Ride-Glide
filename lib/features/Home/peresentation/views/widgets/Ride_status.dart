@@ -80,8 +80,9 @@ class RideStatus extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: CustomButton(
                         onPressed: () {
-                          GoRouter.of(context)
-                              .pushReplacement(AppRouter.kHomeView);
+                          GoRouter.of(context).pop();
+                          GoRouter.of(context).pop();
+                          GoRouter.of(context).pop();
                         },
                         title: const Text('Cancel Ride'),
                         backgroundColor: Theme.of(context).primaryColor,

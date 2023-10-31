@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/features/Home/data/models/driver_Model.dart';
+import 'package:ride_glide/features/Home/peresentation/views/ChangePasswordView.dart';
 import 'package:ride_glide/features/Home/peresentation/views/Choose_destination_onMap_view.dart';
+import 'package:ride_glide/features/Home/peresentation/views/Delete_account_view.dart';
+import 'package:ride_glide/features/Home/peresentation/views/Privacy_polic_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/Profile_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/SelectTransport_View.dart';
 import 'package:ride_glide/features/Home/peresentation/views/avaialbe_cars_view.dart';
+import 'package:ride_glide/features/Home/peresentation/views/change_language_view.dart';
+import 'package:ride_glide/features/Home/peresentation/views/change_theme_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/choose_Location_onMap_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/confirm_booking_view.dart';
 import 'package:ride_glide/features/Home/peresentation/views/payment_success_view.dart';
+import 'package:ride_glide/features/Home/peresentation/views/settings_view.dart';
 import 'package:ride_glide/features/auth/peresentation/views/OTP_view.dart';
 import 'package:ride_glide/features/auth/peresentation/views/otp_view_forOtherSignUpOptions.dart';
 import 'package:ride_glide/features/auth/peresentation/views/setProfile_view.dart';
@@ -46,6 +52,12 @@ abstract class AppRouter {
   static const String kConfirmBookingView = '/ConfirmBookingView';
   static const String kPaymentSuccessView = '/PaymentSuccessView';
   static const String kProfileView = '/ProfileView';
+  static const String kSettingsView = '/SettingsView';
+  static const String kChangePasswordView = '/ChangePasswordView';
+  static const String kChangeLanguageView = '/ChangeLanguageView';
+  static const String kPrivacyPolicyView = '/PrivacyPolicyView';
+  static const String kChangeThemeView = '/ChangeThemeView';
+  static const String kDeleteAccountView = '/DeleteAccountView';
 
   static final router = GoRouter(
     routes: [
@@ -85,6 +97,36 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
+        path: kChangePasswordView,
+        pageBuilder: (context, state) {
+          return basicTransition(child: const ChangePasswordView());
+        },
+      ),
+      GoRoute(
+        path: kChangeLanguageView,
+        pageBuilder: (context, state) {
+          return basicTransition(child: const ChangeLanguageView());
+        },
+      ),
+      GoRoute(
+        path: kPrivacyPolicyView,
+        pageBuilder: (context, state) {
+          return basicTransition(child: const PrivacyPolicyView());
+        },
+      ),
+      GoRoute(
+        path: kChangeThemeView,
+        pageBuilder: (context, state) {
+          return basicTransition(child: const ChangeThemeView());
+        },
+      ),
+      GoRoute(
+        path: kDeleteAccountView,
+        pageBuilder: (context, state) {
+          return basicTransition(child: const DeleteAccountView());
+        },
+      ),
+      GoRoute(
         path: kOTPView,
         pageBuilder: (context, state) {
           return basicTransition(child: const OTPView());
@@ -100,6 +142,12 @@ abstract class AppRouter {
         path: kSetProfileView,
         pageBuilder: (context, state) {
           return basicTransition(child: const SetProfileView());
+        },
+      ),
+      GoRoute(
+        path: kSettingsView,
+        pageBuilder: (context, state) {
+          return basicTransition(child: const SettingsView());
         },
       ),
       GoRoute(

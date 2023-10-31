@@ -110,7 +110,9 @@ class NavDrawer extends StatelessWidget {
               CustomDrawerElement(
                 icon: Assets.SettingsIcon,
                 title: 'Settings',
-                onTap: () {},
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kSettingsView);
+                },
               ),
               CustomDrawerElement(
                 icon: Assets.HelpIcon,

@@ -37,4 +37,6 @@ class Assets {
   static const String RefferalIcon = "assets/Referral.png";
   static const String LogOutIcon = "assets/Logout.png";
   static const String AboutUsIcon = "assets/About Us.png";
+  static const String EnglishFlag = "assets/Flag.png";
+  static const String ArabicFlag = "assets/Flagarabic.png";
 }
