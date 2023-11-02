@@ -11,6 +11,7 @@ import 'package:ride_glide/features/Home/peresentation/manager/Place_details_cub
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_floating_appBoxFor_chooseOnMap.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_slide%20transition_widget.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class ChooseLocationOnMapViewBody extends StatefulWidget {
   const ChooseLocationOnMapViewBody({
@@ -120,9 +121,7 @@ class _ChooseLocationOnMapViewBodyState
                       CameraPosition(target: newLatLng, zoom: 17),
                     ),
                   );
-                }).catchError((error) {
-                  debugPrint('Error: $error');
-                });
+                }).catchError((error) {});
               },
               child: Image.asset(
                 Assets.LocationIcon,
@@ -145,7 +144,7 @@ class _ChooseLocationOnMapViewBodyState
                       });
                     },
                     title: Text(
-                      'Done',
+                      S.of(context).Done,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     backgroundColor: Theme.of(context).primaryColor);
@@ -176,7 +175,7 @@ class _ChooseLocationOnMapViewBodyState
                             .push(AppRouter.kSelectTransportView);
                       },
                       title: Text(
-                        '            Order Now          ',
+                        '           ${S.of(context).OrderNow}         ',
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!

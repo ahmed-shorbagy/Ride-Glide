@@ -9,6 +9,7 @@ import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_prof
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/log_out_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -43,10 +44,7 @@ class ProfileView extends StatelessWidget {
                               GoRouter.of(context)
                                   .pushReplacement(AppRouter.kSignInView);
                             }
-                            if (state is LogOutFaluire) {
-                              debugPrint(
-                                  'THGIS IS THE RRORR ==== ${state.errMessage}');
-                            }
+                            if (state is LogOutFaluire) {}
                           },
                           child: CustomButton(
                             backgroundColor: Colors.white,
@@ -62,7 +60,7 @@ class ProfileView extends StatelessWidget {
                                   );
                                 } else {
                                   return Text(
-                                    'Log Out',
+                                    S.of(context).LogOut,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!

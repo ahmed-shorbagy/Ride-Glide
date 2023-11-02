@@ -5,6 +5,7 @@ import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/OnlineDrivers_cubit/online_drivers_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_avaliable_cars_card.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class AvaialbeCarsViewBody extends StatelessWidget {
   const AvaialbeCarsViewBody({super.key});
@@ -26,7 +27,7 @@ class AvaialbeCarsViewBody extends StatelessWidget {
                     ),
                     Center(
                       child: Text(
-                        'Avaiable cars for ride',
+                        S.of(context).AvailableCarsForRide,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!

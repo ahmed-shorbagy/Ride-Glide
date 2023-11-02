@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
+import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_icon_wihtLabel.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_hexagon_withLabel.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class CustomBottombar extends StatefulWidget {
   const CustomBottombar({
@@ -42,88 +45,94 @@ class _CustomBottombarState extends State<CustomBottombar> {
             clipBehavior: Clip.none,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.defaultSize! * 2),
-                      child: IconWithLabel(
-                        iconColor: homeIconPressed ? Colors.green : Colors.grey,
-                        textColor: homeIconPressed ? Colors.green : Colors.grey,
-                        onTap: () {
-                          setState(() {
-                            homeIconPressed = true;
-                            favoriteIconPressed = false;
-                            offerIconPressed = false;
-                            profileIconPressed = false;
-                          });
-                          GoRouter.of(context)
-                              .pushReplacement(AppRouter.kHomeView);
-                        },
-                        imageName: Assets.HomeIcon,
-                        label: 'Home',
-                      )),
-                  Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.defaultSize! * 2),
-                      child: IconWithLabel(
-                        iconColor:
-                            favoriteIconPressed ? Colors.green : Colors.grey,
-                        textColor:
-                            favoriteIconPressed ? Colors.green : Colors.grey,
-                        onTap: () {
-                          setState(() {
-                            homeIconPressed = false;
-                            favoriteIconPressed = true;
-                            offerIconPressed = false;
-                            profileIconPressed = false;
-                          });
-                        },
-                        imageName: Assets.HeartIcon,
-                        label: 'Favourite',
-                      )),
-                  const SizedBox(
-                    width: 50,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        IconWithLabel(
+                          iconColor:
+                              homeIconPressed ? Colors.green : Colors.grey,
+                          textColor:
+                              homeIconPressed ? Colors.green : Colors.grey,
+                          onTap: () {
+                            setState(() {
+                              homeIconPressed = true;
+                              favoriteIconPressed = false;
+                              offerIconPressed = false;
+                              profileIconPressed = false;
+                            });
+
+                            GoRouter.of(context)
+                                .pushReplacement(AppRouter.kHomeView);
+                          },
+                          imageName: Assets.HomeIcon,
+                          label: S.of(context).bottomBarHome,
+                        ),
+                        const Gap(32),
+                        IconWithLabel(
+                          iconColor:
+                              favoriteIconPressed ? Colors.green : Colors.grey,
+                          textColor:
+                              favoriteIconPressed ? Colors.green : Colors.grey,
+                          onTap: () {
+                            setState(() {
+                              homeIconPressed = false;
+                              favoriteIconPressed = true;
+                              offerIconPressed = false;
+                              profileIconPressed = false;
+                            });
+                          },
+                          imageName: Assets.HeartIcon,
+                          label: S.of(context).bottomBarFavourite,
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.defaultSize! * 4),
-                      child: IconWithLabel(
-                        iconColor:
-                            offerIconPressed ? Colors.green : Colors.grey,
-                        textColor:
-                            offerIconPressed ? Colors.green : Colors.grey,
-                        onTap: () {
-                          setState(() {
-                            homeIconPressed = false;
-                            favoriteIconPressed = false;
-                            offerIconPressed = true;
-                            profileIconPressed = false;
-                          });
-                        },
-                        imageName: Assets.DicountIcon,
-                        label: 'Offer',
-                      )),
-                  Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.defaultSize! * 2),
-                      child: IconWithLabel(
-                        iconColor:
-                            profileIconPressed ? Colors.green : Colors.grey,
-                        textColor:
-                            profileIconPressed ? Colors.green : Colors.grey,
-                        onTap: () {
-                          setState(() {
-                            homeIconPressed = false;
-                            favoriteIconPressed = false;
-                            offerIconPressed = false;
-                            profileIconPressed = true;
-                          });
-                          GoRouter.of(context)
-                              .pushReplacement(AppRouter.kProfileView);
-                        },
-                        imageName: Assets.UserIcon,
-                        label: 'Profile',
-                      )),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconWithLabel(
+                          iconColor:
+                              offerIconPressed ? Colors.green : Colors.grey,
+                          textColor:
+                              offerIconPressed ? Colors.green : Colors.grey,
+                          onTap: () {
+                            setState(() {
+                              homeIconPressed = false;
+                              favoriteIconPressed = false;
+                              offerIconPressed = true;
+                              profileIconPressed = false;
+                            });
+                          },
+                          imageName: Assets.DicountIcon,
+                          label: S.of(context).bottomBarOffer,
+                        ),
+                        const Gap(32),
+                        IconWithLabel(
+                          iconColor:
+                              profileIconPressed ? Colors.green : Colors.grey,
+                          textColor:
+                              profileIconPressed ? Colors.green : Colors.grey,
+                          onTap: () {
+                            setState(() {
+                              homeIconPressed = false;
+                              favoriteIconPressed = false;
+                              offerIconPressed = false;
+                              profileIconPressed = true;
+                            });
+
+                            GoRouter.of(context).push(AppRouter.kProfileView);
+                          },
+                          imageName: Assets.UserIcon,
+                          label: S.of(context).bottomBarProifle,
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
               Positioned(

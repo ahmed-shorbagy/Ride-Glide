@@ -6,9 +6,11 @@ import 'package:hive/hive.dart';
 import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
+import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/log_out_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key});
@@ -24,10 +26,20 @@ class NavDrawer extends StatelessWidget {
         }
       },
       child: Drawer(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(82),
-            topRight: Radius.circular(82),
+            bottomRight: isArabic()
+                ? const Radius.circular(0)
+                : const Radius.circular(82),
+            topRight: isArabic()
+                ? const Radius.circular(0)
+                : const Radius.circular(82),
+            bottomLeft: isArabic()
+                ? const Radius.circular(82)
+                : const Radius.circular(0),
+            topLeft: isArabic()
+                ? const Radius.circular(82)
+                : const Radius.circular(0),
           ),
         ),
         child: SingleChildScrollView(
@@ -89,39 +101,39 @@ class NavDrawer extends StatelessWidget {
               ),
               CustomDrawerElement(
                 icon: Assets.HistoryIcon,
-                title: 'History',
+                title: S.of(context).History,
                 onTap: () {},
               ),
               CustomDrawerElement(
                 icon: Assets.ComplainIcon,
-                title: 'Complain',
+                title: S.of(context).Complain,
                 onTap: () {},
               ),
               CustomDrawerElement(
                 icon: Assets.RefferalIcon,
-                title: 'Referral',
+                title: S.of(context).Referral,
                 onTap: () {},
               ),
               CustomDrawerElement(
                 icon: Assets.AboutUsIcon,
-                title: 'About Us',
+                title: S.of(context).AboutUs,
                 onTap: () {},
               ),
               CustomDrawerElement(
                 icon: Assets.SettingsIcon,
-                title: 'Settings',
+                title: S.of(context).Settings,
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kSettingsView);
                 },
               ),
               CustomDrawerElement(
                 icon: Assets.HelpIcon,
-                title: 'Help and Support',
+                title: S.of(context).HelpandSupport,
                 onTap: () {},
               ),
               CustomDrawerElement(
                 icon: Assets.LogOutIcon,
-                title: 'Log Out',
+                title: S.of(context).LogOut,
                 onTap: () async {
                   await BlocProvider.of<LogOutCubit>(context).logOut();
                 },

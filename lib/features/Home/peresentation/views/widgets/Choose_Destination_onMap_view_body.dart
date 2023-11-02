@@ -11,6 +11,7 @@ import 'package:ride_glide/features/Home/peresentation/manager/Place_details_cub
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_floating_appBoxFor_chooseOnMap.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_slide%20transition_widget.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class ChooseDestinationOnMapViewBody extends StatefulWidget {
   const ChooseDestinationOnMapViewBody({
@@ -145,13 +146,11 @@ class _ChooseLocationOnMapViewBodyState
                       });
                     },
                     title: Text(
-                      'Done',
+                      S.of(context).Done,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     backgroundColor: Theme.of(context).primaryColor);
               } else if (state is PickDestinationFaluire) {
-                debugPrint(
-                    'THIS SIS THE RERORO MESSGAE ==== ${state.errMessage}');
                 return const SizedBox();
               } else {
                 return const SizedBox();
@@ -180,7 +179,7 @@ class _ChooseLocationOnMapViewBodyState
                             .push(AppRouter.kSelectTransportView);
                       },
                       title: Text(
-                        '            Order Now           ',
+                        '           ${S.of(context).OrderNow}           ',
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge!

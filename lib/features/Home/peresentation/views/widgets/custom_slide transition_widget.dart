@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class SlideAnimationWidget extends StatefulWidget {
   const SlideAnimationWidget({super.key});
@@ -55,7 +56,7 @@ class _SlideAnimationWidgetState extends State<SlideAnimationWidget>
         ),
         child: Center(
           child: Text(
-            'Just Tap On your Desired Location !',
+            S.of(context).JustTapOnyourDesiredLocation,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),

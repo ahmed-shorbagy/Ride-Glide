@@ -6,6 +6,7 @@ import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/delete_password_cubit/delete_password_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class DeleteAccountView extends StatelessWidget {
   const DeleteAccountView({super.key});
@@ -34,7 +35,7 @@ class DeleteAccountView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
-                  'Are you sure you want to delete your account? Please read how account deletion will affect.Deleting your account removes personal information our database. Tour email becomes permanently reserved and same email cannot be re-use to register a new account.',
+                  S.of(context).AreYouSure,
                   style: Theme.of(context).textTheme.bodyLarge!,
                 ),
               ),
@@ -46,7 +47,7 @@ class DeleteAccountView extends StatelessWidget {
                     await BlocProvider.of<DeletePasswordCubit>(context)
                         .deleteAccount();
                   },
-                  title: const Text('Delete'),
+                  title: Text(S.of(context).Delete),
                   backgroundColor: Colors.red)
             ],
           ),

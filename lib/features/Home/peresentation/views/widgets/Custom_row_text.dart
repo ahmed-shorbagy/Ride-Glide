@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class CustomRowText extends StatelessWidget {
   const CustomRowText({
@@ -19,7 +20,7 @@ class CustomRowText extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Text(
-            '  Choose on Map',
+            S.of(context).ChooseOnMap,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         )

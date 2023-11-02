@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -23,7 +24,7 @@ class SettingsView extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kChangePasswordView);
                 },
-                title: 'Change Password',
+                title: S.of(context).ChangePassword,
                 icon: Icons.arrow_forward_ios,
               ),
             ),
@@ -33,7 +34,7 @@ class SettingsView extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kChangeLanguageView);
                 },
-                title: 'Change Language',
+                title: S.of(context).ChangeLanguage,
                 icon: Icons.arrow_forward_ios,
               ),
             ),
@@ -43,7 +44,7 @@ class SettingsView extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kPrivacyPolicyView);
                 },
-                title: 'Privacy Policy',
+                title: S.of(context).PrivacyPolicy,
                 icon: Icons.arrow_forward_ios,
               ),
             ),
@@ -53,7 +54,7 @@ class SettingsView extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kChangeThemeView);
                 },
-                title: 'Change Theme',
+                title: S.of(context).ChangeTheme,
                 icon: Icons.arrow_forward_ios,
               ),
             ),
@@ -63,7 +64,7 @@ class SettingsView extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kDeleteAccountView);
                 },
-                title: 'Delete Account',
+                title: S.of(context).DeleteAccount,
                 icon: Icons.arrow_forward_ios,
               ),
             ),

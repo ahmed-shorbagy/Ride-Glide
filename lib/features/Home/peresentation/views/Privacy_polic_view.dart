@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class PrivacyPolicyView extends StatelessWidget {
   const PrivacyPolicyView({super.key});
@@ -15,7 +16,7 @@ class PrivacyPolicyView extends StatelessWidget {
             child: CustomAppBar(),
           ),
           Text(
-            'Privacy Policy for Ride share',
+            S.of(context).PrivacyPolicy,
             style: Theme.of(context)
                 .textTheme
                 .titleSmall!
@@ -26,9 +27,12 @@ class PrivacyPolicyView extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              'At Rideshare, accessible from rideshare.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by rideshare and how we use it.If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us. This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in rideshare. This policy is not applicable to any information collected offline or via channels other than this website. Our Privacy Policy was created with the help of the Free Privacy Policy Generator.',
-              style: Theme.of(context).textTheme.bodyLarge!,
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Text(
+                'At Rideshare, accessible from rideshare.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by rideshare and how we use it.If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us. This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in rideshare. This policy is not applicable to any information collected offline or via channels other than this website. Our Privacy Policy was created with the help of the Free Privacy Policy Generator.',
+                style: Theme.of(context).textTheme.bodyLarge!,
+              ),
             ),
           ),
         ]),

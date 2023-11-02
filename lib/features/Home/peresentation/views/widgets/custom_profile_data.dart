@@ -6,6 +6,7 @@ import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_phoneField.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_text_search_field.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class CustomProfileData extends StatelessWidget {
   const CustomProfileData({
@@ -97,7 +98,7 @@ class CustomProfileHeadLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Profile',
+        S.of(context).Profile,
         style: Theme.of(context)
             .textTheme
             .titleSmall!

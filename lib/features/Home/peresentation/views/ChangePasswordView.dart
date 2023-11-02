@@ -10,6 +10,7 @@ import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appB
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_text_search_field.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/sePassword_view_body.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class ChangePasswordView extends StatefulWidget {
   const ChangePasswordView({super.key});
@@ -38,7 +39,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             child: CustomAppBar(),
           ),
           Text(
-            'Set Password',
+            S.of(context).SetPassword,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -48,7 +49,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           Padding(
             padding: const EdgeInsets.only(top: 12, bottom: 76),
             child: Text(
-              'Set Your Password',
+              S.of(context).SetPassword,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
@@ -84,7 +85,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 onChanged: (value) {
                   _passwordController.text = value;
                 },
-                hintText: 'Enter your password'),
+                hintText: S.of(context).EnterYourPassword),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -114,14 +115,14 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                 onChanged: (value) {
                   _confirmPasswordController.text = value;
                 },
-                hintText: 'Confirm your password'),
+                hintText: S.of(context).ConfirmPassword),
           ),
           if (!passwordsMatch)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               child: Text(
-                'Passwords do not match',
-                style: TextStyle(
+                S.of(context).PasswordDontMatch,
+                style: const TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,
                 ),
@@ -136,7 +137,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               listener: (context, state) {
                 if (state is ChangePasswordSuccess) {
                   user.password = _confirmPasswordController.text;
-                  snackBar(context, 'Password Changed Successfully');
+                  snackBar(context, S.of(context).PasswordChangedSuccessfully);
                 } else if (state is ChangePasswordFaluire) {
                   snackBar(context, state.errMessage);
                 }
@@ -169,7 +170,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             child: CircularProgressIndicator(),
                           )
                         : Text(
-                            'Save Changes',
+                            S.of(context).SaveChanges,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!

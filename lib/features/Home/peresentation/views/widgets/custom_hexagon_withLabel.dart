@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexagon/hexagon.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class CustomhexagonWithLabel extends StatelessWidget {
   const CustomhexagonWithLabel({
@@ -27,7 +28,7 @@ class CustomhexagonWithLabel extends StatelessWidget {
           height: SizeConfig.defaultSize! * 0.7,
         ),
         Text(
-          'Wallet',
+          S.of(context).bottomBarWallet,
           style: Theme.of(context)
               .textTheme
               .bodySmall!

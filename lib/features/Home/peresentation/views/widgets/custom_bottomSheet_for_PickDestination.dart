@@ -7,6 +7,7 @@ import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_List
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_drag_notch.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_row_text.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_rideInfo_textFields.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class CustomDestinationBottomsheet extends StatefulWidget {
   const CustomDestinationBottomsheet({super.key});
@@ -29,7 +30,7 @@ class _CustomDestinationBottomsheetState
             child: CustomDragNotch(),
           ),
           Text(
-            'Select address',
+            S.of(context).SelectAddress,
             style: Theme.of(context)
                 .textTheme
                 .headlineLarge!
@@ -42,7 +43,7 @@ class _CustomDestinationBottomsheetState
             ),
           ),
           CustomRideInfoTextFields(
-            hintText: 'TO',
+            hintText: S.of(context).To,
             controller: PickDestinationCubit.destinationPlacecontroller,
           ),
           const Divider(

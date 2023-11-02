@@ -9,6 +9,7 @@ import 'package:ride_glide/features/Home/peresentation/manager/Place_details_cub
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_BottomSheet_for_PickLocation.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_bottomSheet_for_PickDestination.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_map_textField.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class CustomFloatingAppBox extends StatelessWidget {
   const CustomFloatingAppBox({
@@ -19,7 +20,7 @@ class CustomFloatingAppBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        height: 160,
+        height: 170,
         width: SizeConfig.screenwidth! * 0.9,
         decoration: const ShapeDecoration(
           color: Color(0xffB9E5D1),
@@ -41,7 +42,7 @@ class CustomFloatingAppBox extends StatelessWidget {
                 },
                 child: CustomMapTextField(
                   controller: PickLocationCubit.locationPlaceController,
-                  hintText: 'Location',
+                  hintText: S.of(context).location,
                   prefixIcon: GestureDetector(
                     onTap: () async {
                       PickLocationCubit.locationPlaceController.text =
@@ -79,7 +80,7 @@ class CustomFloatingAppBox extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CustomMapTextField(
                 controller: PickDestinationCubit.destinationPlacecontroller,
-                hintText: 'Destntion',
+                hintText: S.of(context).Destination,
                 prefixIcon: Image.asset(
                   Assets.MarkerIcon,
                   scale: 4,

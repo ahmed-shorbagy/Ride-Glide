@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ride_glide/constants.dart';
 import 'package:ride_glide/core/errors/simple_bloc_observer.dart';
@@ -18,6 +19,7 @@ import 'package:ride_glide/features/auth/data/models/user_model.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/change_password_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/email_paswword_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/face_book_auth_cubit.dart';
+import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/delete_password_cubit/delete_password_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/get_userData_cubit/get_user_data_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/google_auth_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/log_out_cubit.dart';
@@ -25,6 +27,7 @@ import 'package:ride_glide/features/auth/peresentation/manager/cubit/phone_auth_
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/updae_image_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/manager/cubit/user_cubit.dart';
 import 'package:ride_glide/firebase_options.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 import 'core/utils/App_router.dart';
 import 'core/utils/app_theme.dart';
@@ -59,6 +62,9 @@ class RideGlide extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ChangePasswordCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DeletePasswordCubit(),
         ),
         BlocProvider(
           create: (context) => LogOutCubit(),
@@ -105,6 +111,14 @@ class RideGlide extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
+        locale: const Locale('ar'),
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
         routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,
         theme: theme(),

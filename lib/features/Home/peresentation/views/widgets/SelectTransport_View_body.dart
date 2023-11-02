@@ -8,6 +8,7 @@ import 'package:ride_glide/core/utils/size_config.dart';
 import 'package:ride_glide/features/Home/peresentation/manager/OnlineDrivers_cubit/online_drivers_cubit.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_transport_type_card.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class SelectTransportViewBody extends StatelessWidget {
   const SelectTransportViewBody({super.key});
@@ -22,7 +23,7 @@ class SelectTransportViewBody extends StatelessWidget {
         ),
         Center(
           child: Text(
-            'Select your transport',
+            S.of(context).SelectYourTransport,
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontWeight: FontWeight.w500, color: const Color(0xff5A5A5A)),
           ),
@@ -45,19 +46,25 @@ class SelectTransportViewBody extends StatelessWidget {
                 },
                 child: CustomTansportTypeCard(
                   icon: Assets.CarIcon,
-                  title: 'Car',
+                  title: S.of(context).Car,
                   onTap: () async {
                     await BlocProvider.of<OnlineDriversCubit>(context)
                         .checkForOnlineDrivers();
                   },
                 ),
               ),
-              const CustomTansportTypeCard(
-                  icon: Assets.BikeIcon, title: 'Bike'),
-              const CustomTansportTypeCard(
-                  icon: Assets.CycleIcon, title: 'Cycle'),
-              const CustomTansportTypeCard(
-                  icon: Assets.TaxiIcon, title: 'Taxi'),
+              CustomTansportTypeCard(
+                icon: Assets.BikeIcon,
+                title: S.of(context).Bike,
+              ),
+              CustomTansportTypeCard(
+                icon: Assets.CycleIcon,
+                title: S.of(context).Cycle,
+              ),
+              CustomTansportTypeCard(
+                icon: Assets.TaxiIcon,
+                title: S.of(context).Taxi,
+              ),
             ],
           ),
         )

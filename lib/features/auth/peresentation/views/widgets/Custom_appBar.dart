@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ride_glide/core/utils/methods.dart';
+import 'package:ride_glide/generated/l10n.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -15,11 +17,13 @@ class CustomAppBar extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios_new),
+          icon: isArabic()
+              ? const Icon(Icons.arrow_left_sharp)
+              : const Icon(Icons.arrow_back_ios_new),
         ),
-        const Text(
-          'Back',
-          style: TextStyle(
+        Text(
+          S.of(context).Back,
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.normal,
             color: Colors.black,

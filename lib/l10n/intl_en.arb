@@ -1,0 +1,50 @@
+{
+"bottomBarHome": "Home",
+"bottomBarFavourite": "Favourite",
+"bottomBarWallet": "Wallet",
+"bottomBarOffer": "Offer",
+"bottomBarProifle": "Profile",
+"location": "Location",
+"Destination": "Destination",
+"Back":"Back",
+"History":"History",
+"Complain":"Complain",
+"Referral":"Referral",
+"AboutUs":"About Us",
+"Settings":"Settings",
+"LogOut":"Log Out",
+"HelpandSupport":"Help and Support",
+"ChangePassword":"Change Password",
+"ChangeLanguage":"Change Language",
+"PrivacyPolicy":"Privacy Policy",
+"ChangeTheme":"Change Theme",
+"DeleteAccount":"Delete Account",
+"SelectAddress":"SelectAddress",
+"From":"From",
+"To":"To",
+"ChooseOnMap":"Choose On Map",
+"OrderNow":"Order Now",
+"Done":"Done",
+"JustTapOnyourDesiredLocation":"Just Tap On your Desired Location !",
+"SelectYourTransport":"Select Your Transport",
+"Bike":"Bike",
+"Car":"Car",
+"Taxi":"Taxi",
+"Cycle":"Cycle",
+"AvailableCarsForRide":"Available Cars For Ride",
+"Profile":"Profile",
+
+"SetPassword":"Set Password",
+
+"Delete":"Delete",
+"AreYouSure":"Are you sure you want to delete your account? Please read how account deletion will affect.Deleting your account removes personal information our database. Tour email becomes permanently reserved and same email cannot be re-use to register a new account.",
+"SaveChanges":"Save Changes",
+"EnterYourPassword":"Enter your password",
+"ConfirmPassword":"Confirm your password",
+"PasswordDontMatch":"Passwords Dont Match",
+
+"PasswordChangedSuccessfully":"Password Changed Successfully"
+
+
+
+}
