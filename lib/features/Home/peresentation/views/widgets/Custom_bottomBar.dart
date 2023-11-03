@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
 import 'package:ride_glide/core/utils/App_router.dart';
-import 'package:ride_glide/core/utils/methods.dart';
 import 'package:ride_glide/core/utils/size_config.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_icon_wihtLabel.dart';
 import 'package:ride_glide/features/Home/peresentation/views/widgets/custom_hexagon_withLabel.dart';
@@ -29,9 +28,9 @@ class _CustomBottombarState extends State<CustomBottombar> {
     return Container(
       width: SizeConfig.screenwidth,
       height: 80,
-      decoration: const ShapeDecoration(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
+      decoration: ShapeDecoration(
+        color: Theme.of(context).secondaryHeaderColor,
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(32),
             topRight: Radius.circular(32),

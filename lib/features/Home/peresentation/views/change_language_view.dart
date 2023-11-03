@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ride_glide/core/utils/App_images.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/Language_cubit/language_cubit.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 
 class ChangeLanguageView extends StatefulWidget {
@@ -30,6 +32,8 @@ class _ChangeLanguageViewState extends State<ChangeLanguageView> {
               title: 'English',
               image: Assets.EnglishFlag,
               onTap: () {
+                BlocProvider.of<LanguageCubit>(context)
+                    .changeLanguage(const Locale('en'));
                 setState(() {
                   englishSelected = true;
                   arabicSelected = false;
@@ -44,6 +48,8 @@ class _ChangeLanguageViewState extends State<ChangeLanguageView> {
               title: 'Arabic',
               image: Assets.ArabicFlag,
               onTap: () {
+                BlocProvider.of<LanguageCubit>(context)
+                    .changeLanguage(const Locale('ar'));
                 setState(() {
                   englishSelected = false;
                   arabicSelected = true;
@@ -77,7 +83,6 @@ class CustomLanguageElement extends StatelessWidget {
         width: 362,
         height: 61,
         decoration: ShapeDecoration(
-          color: Colors.white,
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 0.50, color: Color(0xFF08B783)),
             borderRadius: BorderRadius.circular(8),

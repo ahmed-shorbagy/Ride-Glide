@@ -27,10 +27,7 @@ class PlacesCustomListItem extends StatelessWidget {
               ),
               Text(
                 place.structuredFormatting?.mainText ?? 'err',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(color: Colors.black),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(),
               ),
             ],
           ),

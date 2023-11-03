@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ride_glide/core/utils/App_images.dart';
-import 'package:ride_glide/features/Home/peresentation/views/change_language_view.dart';
+import 'package:provider/provider.dart';
+import 'package:ride_glide/features/Home/peresentation/manager/Theme_provider/Theme_provider.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/Custom_appBar.dart';
 
 class ChangeThemeView extends StatefulWidget {
@@ -29,6 +29,8 @@ class _ChangeThemeViewState extends State<ChangeThemeView> {
             title: 'Light',
             icon: Icons.light_mode,
             onTap: () {
+              Provider.of<ThemeProvider>(context, listen: false)
+                  .setThemeMode(ThemeMode.light);
               setState(() {
                 lightSelected = true;
                 darkSelected = false;
@@ -43,6 +45,8 @@ class _ChangeThemeViewState extends State<ChangeThemeView> {
             title: 'Dark',
             icon: Icons.dark_mode,
             onTap: () {
+              Provider.of<ThemeProvider>(context, listen: false)
+                  .setThemeMode(ThemeMode.dark);
               setState(() {
                 lightSelected = false;
                 darkSelected = true;
@@ -75,7 +79,6 @@ class CustomThemeElement extends StatelessWidget {
         width: 362,
         height: 61,
         decoration: ShapeDecoration(
-          color: Colors.white,
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 0.50, color: Color(0xFF08B783)),
             borderRadius: BorderRadius.circular(8),

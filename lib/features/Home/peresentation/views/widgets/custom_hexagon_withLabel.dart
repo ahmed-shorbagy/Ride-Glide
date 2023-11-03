@@ -32,7 +32,7 @@ class CustomhexagonWithLabel extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall!
-              .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+              .copyWith(fontWeight: FontWeight.bold),
         )
       ],
     );

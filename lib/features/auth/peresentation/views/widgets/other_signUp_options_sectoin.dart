@@ -35,7 +35,6 @@ class OtherSignUpOptions extends StatelessWidget {
             },
             builder: (context, state) {
               return CustomButton(
-                backgroundColor: Colors.white,
                 onPressed: () async {
                   await BlocProvider.of<GoogleAuthCubit>(context)
                       .signUpWihGoogle();
@@ -73,7 +72,6 @@ class OtherSignUpOptions extends StatelessWidget {
             },
             builder: (context, state) {
               return CustomButton(
-                backgroundColor: Colors.white,
                 onPressed: () async {
                   await BlocProvider.of<FaceBookAuthCubit>(context)
                       .signUpWithFaceBook();
@@ -102,7 +100,6 @@ class OtherSignUpOptions extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: CustomButton(
-            backgroundColor: Colors.white,
             onPressed: () {},
             title: const CustomButtonTextWithIcon(
               text: 'Sign up with Apple',

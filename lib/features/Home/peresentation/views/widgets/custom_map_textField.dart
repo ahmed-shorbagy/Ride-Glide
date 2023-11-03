@@ -16,7 +16,8 @@ class CustomMapTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: Theme.of(context).textTheme.bodyLarge,
+      style:
+          Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.black),
       controller: controller,
       readOnly: true,
       onTap: onTap,

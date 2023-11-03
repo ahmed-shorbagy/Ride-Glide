@@ -26,7 +26,6 @@ class CustomAppBar extends StatelessWidget {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.normal,
-            color: Colors.black,
           ),
         ),
       ],

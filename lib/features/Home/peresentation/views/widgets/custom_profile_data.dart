@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
-import 'package:ride_glide/core/utils/size_config.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';
-import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_button.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_phoneField.dart';
 import 'package:ride_glide/features/auth/peresentation/views/widgets/custom_text_search_field.dart';
 import 'package:ride_glide/generated/l10n.dart';

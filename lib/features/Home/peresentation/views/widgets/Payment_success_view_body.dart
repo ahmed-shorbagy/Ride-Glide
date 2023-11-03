@@ -46,7 +46,7 @@ class PaymentSuccessViewBody extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: SizeConfig.screenhieght! * 0.2),
+          padding: EdgeInsets.only(top: SizeConfig.screenhieght! * 0.1),
           child: const RideStatus(),
         )
       ],

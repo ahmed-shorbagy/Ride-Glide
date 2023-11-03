@@ -93,7 +93,6 @@ class CustomSettingsElement extends StatelessWidget {
         width: 362,
         height: 61,
         decoration: ShapeDecoration(
-          color: Colors.white,
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 0.50, color: Color(0xFF08B783)),
             borderRadius: BorderRadius.circular(8),

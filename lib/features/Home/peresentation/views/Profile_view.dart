@@ -47,7 +47,6 @@ class ProfileView extends StatelessWidget {
                             if (state is LogOutFaluire) {}
                           },
                           child: CustomButton(
-                            backgroundColor: Colors.white,
                             onPressed: () async {
                               await BlocProvider.of<LogOutCubit>(context)
                                   .logOut();
@@ -64,10 +63,7 @@ class ProfileView extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
-                                        .copyWith(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontSize: 16),
+                                        .copyWith(fontSize: 16),
                                   );
                                 }
                               },

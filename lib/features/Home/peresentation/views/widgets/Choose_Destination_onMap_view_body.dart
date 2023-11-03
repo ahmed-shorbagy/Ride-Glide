@@ -77,6 +77,11 @@ class _ChooseLocationOnMapViewBodyState
               zoomControlsEnabled: false,
               zoomGesturesEnabled: true,
               onMapCreated: (controller) {
+                if (Theme.of(context).brightness == Brightness.dark) {
+                  controller.setMapStyle(darkMapStyle);
+                } else {
+                  controller.setMapStyle(lightMapStyle);
+                }
                 setState(() {
                   mapController = controller;
                 });
@@ -93,7 +98,6 @@ class _ChooseLocationOnMapViewBodyState
                   ),
                 ),
               },
-              mapType: MapType.terrain,
               myLocationEnabled: true,
               compassEnabled: true,
               onTap: _handleMapTap),

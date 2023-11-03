@@ -4,27 +4,22 @@ import 'package:ride_glide/features/Home/peresentation/views/widgets/Custom_nav_
 import 'widgets/home_view_body.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({Key? key}) : super(key: key); // Use key argument here
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
-GlobalKey<ScaffoldState>? scaffoldKey;
-
 class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-    scaffoldKey = GlobalKey<ScaffoldState>();
-    super.initState();
-  }
+  final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>(); // Use an instance-specific key
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: scaffoldKey, // Use the instance-specific key
       drawer: const NavDrawer(),
-      body: const HomeViewBody(),
+      body: HomeViewBody(scaffoldKey: scaffoldKey),
     );
   }
 }

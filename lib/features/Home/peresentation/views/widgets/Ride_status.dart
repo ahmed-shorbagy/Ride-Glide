@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:ride_glide/constants.dart';
-import 'package:ride_glide/core/utils/App_router.dart';
 import 'package:ride_glide/features/Home/data/repos/Home_repo_implementation.dart';
 import 'package:ride_glide/features/auth/data/AuthRepo/authRepoImpl.dart';
 import 'package:ride_glide/features/auth/data/models/user_model.dart';

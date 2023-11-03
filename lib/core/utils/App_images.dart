@@ -39,4 +39,6 @@ class Assets {
   static const String AboutUsIcon = "assets/About Us.png";
   static const String EnglishFlag = "assets/Flag.png";
   static const String ArabicFlag = "assets/Flagarabic.png";
+  static const String MapsDarkMode = "assets/dark_mode_style.json";
+  static const String MapsLightMode = "assets/light_mode_style.json";
 }
