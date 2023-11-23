@@ -1,21 +1,11 @@
-# RideGlide - Flutter Ridesharing App
+#Ride Glide - User App Flutter Ridesharing App
 
 ![RideGlide Logo](link_to_logo)
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
-RideGlide is a versatile ridesharing app developed using Flutter, providing a seamless and efficient way to find and share rides with others. This README file will guide you through setting up and running the app locally.
+Ride Glide is a ride-sharing mobile application developed with Flutter that enables users to easily request rides, select pick-up and drop-off locations using maps, and access various features for a seamless ride-sharing experience. The app supports both Arabic and English languages along with light and dark themes for user preference.
 
 ## Features
 
@@ -40,7 +30,17 @@ Before you begin, make sure you have the following installed on your machine:
 
 ### Installation
 
-1. Clone this repository:
-
-   ```shell
-   git clone https://github.com/yourusername/rideglide.git
+-Clone the repository.
+-Navigate to the user app directory.
+-Run Flutter pub get to install dependencies.
+-Connect a device or use an emulator.
+-Run flutter run to launch the app.
+### Usage
+-Open the Ride Glide User App on your device.
+-Select your preferred language and theme.
+-Log in or sign up to start using the app.
+-Navigate through the app to request rides, set locations, and explore its features.
+###Contributing
+If you want to contribute to the Ride Glide User App, please fork the repository and create a pull request.
+###Support
+For any inquiries or issues, please contact a7med.shorbagy@gmail.com
