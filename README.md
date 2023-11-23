@@ -12,12 +12,11 @@ Ride Glide is a ride-sharing mobile application developed with Flutter that enab
 - User Registration and Authentication
 - Create and Manage Rides
 - Real-Time Tracking
-- In-App Chat
 - Payment Integration
 - Ride Reviews and Ratings
-- Notifications
 
-## Getting Started
+
+
 
 ### Prerequisites
 
